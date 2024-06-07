@@ -41,6 +41,7 @@ publishing {
                 from(components["release"])
             }
         }
+
 //        create<MavenPublication>("mavenJava") {
 //            groupId = "cn.wq"
 //            artifactId = "httpLibrary"
@@ -81,8 +82,10 @@ android {
 
     publishing {
         multipleVariants {
+            withSourcesJar()
             allVariants()
             withJavadocJar()
+
         }
 //        singleVariant("release") {
 //            withSourcesJar()

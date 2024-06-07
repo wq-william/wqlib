@@ -5,8 +5,5 @@ plugins {
     alias(libs.plugins.android.library) apply false
 }
 
-subprojects {
-    apply(plugin = "maven-publish")
-    group = "hz.wqa"
-    version = "0.0.1"
-}
+group = "com.my-company"
+version = "1.0"

@@ -9,10 +9,10 @@ publishing {
             groupId = "cn.wq"
             artifactId = "otherLibrary"
             version = "1.0"
-//
-//            afterEvaluate {
-//                from(components["release"])
-//            }
+
+            afterEvaluate {
+                from(components["release"])
+            }
         }
 //        create<MavenPublication>("mavenJava") {
 //            groupId = "cn.wq"

@@ -37,9 +37,9 @@ publishing {
             artifactId = "httpLibrary"
             version = "1.0"
 
-//            afterEvaluate {
-//                from(components["release"])
-//            }
+            afterEvaluate {
+                from(components["release"])
+            }
         }
 //        create<MavenPublication>("mavenJava") {
 //            groupId = "cn.wq"
@@ -80,14 +80,14 @@ android {
     compileSdk = 34
 
     publishing {
-//        multipleVariants {
-//            allVariants()
-//            withJavadocJar()
-//        }
-        singleVariant("release") {
-            withSourcesJar()
-
+        multipleVariants {
+            allVariants()
+            withJavadocJar()
         }
+//        singleVariant("release") {
+//            withSourcesJar()
+//
+//        }
 
 
     }

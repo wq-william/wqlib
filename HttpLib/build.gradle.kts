@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("maven-publish")
-
+//    id("maven-publish")
+    `maven-publish`
 }
 //publishing {
 //    publications {
@@ -15,13 +15,41 @@ plugins {
 //        }
 //    }
 //}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.my-company"
+            artifactId = "my-library"
+            version = "1.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
 android {
     namespace = "hz.wq.httplib"
     compileSdk = 34
 
-    defaultConfig {
-        minSdk = 24
+    publishing {
+//        multipleVariants {
+//            allVariants()
+//            withJavadocJar()
+//        }
+        singleVariant("release") {
+            withSourcesJar()
 
+        }
+
+
+    }
+
+    defaultConfig {
+        aarMetadata {
+            minSdk = 24
+        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -41,17 +69,17 @@ android {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-//            from(components["release"])
-//            components["default"]
-            groupId = "com.github.yourusername"
-            artifactId = "module1"
-            version = "1.0.0"
-        }
-    }
-}
+//publishing {
+//    publications {
+//        create<MavenPublication>("release") {
+////            from(components["release"])
+////            components["default"]
+//            groupId = "com.github.yourusername"
+//            artifactId = "module1"
+//            version = "1.0.0"
+//        }
+//    }
+//}
 
 dependencies {
 

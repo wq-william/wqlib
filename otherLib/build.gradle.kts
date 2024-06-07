@@ -9,23 +9,23 @@ publishing {
             groupId = "cn.wq"
             artifactId = "otherLibrary"
             version = "1.0"
-
-            afterEvaluate {
-                from(components["release"])
-            }
+//
+//            afterEvaluate {
+//                from(components["release"])
+//            }
         }
-        create<MavenPublication>("mavenJava") {
-            groupId = "cn.wq"
-            artifactId = "otherLibrary"
-            version = "1.0"
-//            from(components["java"])
-        }
+//        create<MavenPublication>("mavenJava") {
+//            groupId = "cn.wq"
+//            artifactId = "otherLibrary"
+//            version = "1.0"
+////            from(components["java"])
+//        }
     }
-    repositories {
-        maven {
-            setUrl("$buildDir/repo")
-        }
-    }
+//    repositories {
+//        maven {
+//            setUrl("$buildDir/repo")
+//        }
+//    }
 
 }
 android {

@@ -37,22 +37,22 @@ publishing {
             artifactId = "httpLibrary"
             version = "1.0"
 
-            afterEvaluate {
-                from(components["release"])
-            }
+//            afterEvaluate {
+//                from(components["release"])
+//            }
         }
-        create<MavenPublication>("mavenJava") {
-            groupId = "cn.wq"
-            artifactId = "httpLibrary"
-            version = "1.0"
-//            from(components["java"])
-        }
+//        create<MavenPublication>("mavenJava") {
+//            groupId = "cn.wq"
+//            artifactId = "httpLibrary"
+//            version = "1.0"
+////            from(components["java"])
+//        }
     }
-    repositories {
-        maven {
-            setUrl("$buildDir/repo")
-        }
-    }
+//    repositories {
+//        maven {
+//            setUrl("$buildDir/repo")
+//        }
+//    }
 }
 // 定义 sourcesJar 任务
 //val sourcesJar by tasks.registering(Jar::class) {

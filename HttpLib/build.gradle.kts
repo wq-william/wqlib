@@ -44,7 +44,7 @@ publishing {
         create<MavenPublication>("mavenJava") {
             groupId = "cn.wq"
             artifactId = "http-library"
-            version = "1.0.1"
+            version = "1.0"
 //            from(components["java"])
         }
     }

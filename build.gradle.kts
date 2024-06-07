@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.android.library) apply false
 //    `maven-publish`
-    alias(libs.plugins.mavenPublish) apply false
+//    alias(libs.plugins.mavenPublish) apply false
 
 }
 
@@ -62,5 +62,5 @@ plugins {
 //
 //    }
 //}
-group = "com.my-company"
-version = "1.0.2"
+//group = "com.my-company"
+//version = "1.0.2"

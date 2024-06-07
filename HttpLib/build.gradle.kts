@@ -3,9 +3,20 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 //    id("maven-publish")
 //    `java-library`
-    alias(libs.plugins.mavenPublish)
+//    alias(libs.plugins.mavenPublish)
+    `maven-publish`
 
 }
+//afterEvaluate {
+//    android.libraryVariants.each{
+//        publishing.publications.create(variant.name,MavenPublication){
+//            from components.findByName(variant.name)
+//            groupId = 'com.yangzaiarea'//自定义
+//            artifactId = 'yzutils'//自定义
+//            version = '1.0.0'//自定义
+//        }
+//    }
+//}
 //publishing {
 //    publications {
 //        create<MavenPublication>("mavenJava") {
@@ -70,18 +81,6 @@ android {
         jvmTarget = "1.8"
     }
 }
-
-//publishing {
-//    publications {
-//        create<MavenPublication>("release") {
-////            from(components["release"])
-////            components["default"]
-//            groupId = "com.github.yourusername"
-//            artifactId = "module1"
-//            version = "1.0.0"
-//        }
-//    }
-//}
 
 dependencies {
 

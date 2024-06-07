@@ -32,16 +32,16 @@ plugins {
 publishing {
 
     publications {
-        register<MavenPublication>("release") {
+        register<MavenPublication>("mavenJava") {
             groupId = "cn.wq"
-            artifactId = "http-library"
+            artifactId = "httpLibrary"
             version = "1.0"
 
             afterEvaluate {
                 from(components["release"])
             }
         }
-        create<MavenPublication>("mavenJava") {
+        create<MavenPublication>("release") {
             groupId = "cn.wq"
             artifactId = "httpLibrary"
             version = "1.0"

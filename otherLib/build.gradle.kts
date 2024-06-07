@@ -54,26 +54,26 @@ android {
     }
 }
 // 定义 sourcesJar 任务
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("sources")
-    from(android.sourceSets["main"].java.srcDirs)
-}
-
-// 将 sourcesJar 作为一个工件
-afterEvaluate {
-    artifacts {
-        add("archives", sourcesJar.get())
-    }
-
-    publishing {
-        publications {
-            create<MavenPublication>("otherLibraryPublication") {
-                from(components["release"])
-                artifact(sourcesJar.get())
-            }
-        }
-    }
-}
+//val sourcesJar by tasks.registering(Jar::class) {
+//    archiveClassifier.set("sources")
+//    from(android.sourceSets["main"].java.srcDirs)
+//}
+//
+//// 将 sourcesJar 作为一个工件
+//afterEvaluate {
+//    artifacts {
+//        add("archives", sourcesJar.get())
+//    }
+//
+//    publishing {
+//        publications {
+//            create<MavenPublication>("otherLibraryPublication") {
+//                from(components["release"])
+//                artifact(sourcesJar.get())
+//            }
+//        }
+//    }
+//}
 dependencies {
 
     implementation(libs.androidx.core.ktx)

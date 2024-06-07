@@ -1,9 +1,12 @@
 package hz.wq.lib
 
 import hz.wq.httplib.TestUse
+import hz.wq.otherlib.OtherTest
 
 class Test {
 
-    var test = TestUse()
-
+    fun testFun() {
+        TestUse().testUseFun()
+        OtherTest.getName()
+    }
 }

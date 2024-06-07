@@ -32,8 +32,8 @@ plugins {
 publishing {
     publications {
         register<MavenPublication>("release") {
-            groupId = "com.my-company"
-            artifactId = "my-library"
+            groupId = "cn.wq"
+            artifactId = "http-library"
             version = "1.0"
 
             afterEvaluate {

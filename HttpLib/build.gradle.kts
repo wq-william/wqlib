@@ -54,6 +54,16 @@ publishing {
         }
     }
 }
+// 定义 sourcesJar 任务
+val sourcesJar by tasks.creating(Jar::class) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets["main"].java.srcDirs)
+}
+
+// 将 sourcesJar 作为一个工件
+artifacts {
+    archives(sourcesJar)
+}
 android {
     namespace = "hz.wq.httplib"
     compileSdk = 34

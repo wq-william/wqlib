@@ -29,19 +29,19 @@ plugins {
 //    }
 //}
 
-//publishing {
-//    publications {
-//        register<MavenPublication>("release") {
-//            groupId = "com.my-company"
-//            artifactId = "my-library"
-//            version = "1.0"
-//
-//            afterEvaluate {
-//                from(components["release"])
-//            }
-//        }
-//    }
-//}
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.my-company"
+            artifactId = "my-library"
+            version = "1.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
 android {
     namespace = "hz.wq.httplib"
     compileSdk = 34

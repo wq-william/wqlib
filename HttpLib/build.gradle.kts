@@ -30,6 +30,7 @@ plugins {
 //}
 
 publishing {
+
     publications {
         register<MavenPublication>("release") {
             groupId = "cn.wq"
@@ -39,6 +40,17 @@ publishing {
             afterEvaluate {
                 from(components["release"])
             }
+        }
+        create<MavenPublication>("mavenJava") {
+            groupId = "cn.wq"
+            artifactId = "http-library"
+            version = "1.0.1"
+//            from(components["java"])
+        }
+    }
+    repositories {
+        maven {
+            setUrl("$buildDir/repo")
         }
     }
 }

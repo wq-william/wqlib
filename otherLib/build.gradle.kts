@@ -14,7 +14,19 @@ publishing {
                 from(components["release"])
             }
         }
+        create<MavenPublication>("mavenJava") {
+            groupId = "cn.wq"
+            artifactId = "http-library"
+            version = "1.0.1"
+//            from(components["java"])
+        }
     }
+    repositories {
+        maven {
+            setUrl("$buildDir/repo")
+        }
+    }
+
 }
 android {
     namespace = "hz.wq.otherlib"

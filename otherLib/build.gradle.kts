@@ -5,7 +5,7 @@ plugins {
 }
 publishing {
     publications {
-        register<MavenPublication>("mavenJava") {
+        register<MavenPublication>("release") {
             groupId = "cn.wq"
             artifactId = "otherLibrary"
             version = "1.0"
@@ -14,7 +14,7 @@ publishing {
                 from(components["release"])
             }
         }
-        create<MavenPublication>("release") {
+        create<MavenPublication>("mavenJava") {
             groupId = "cn.wq"
             artifactId = "otherLibrary"
             version = "1.0"

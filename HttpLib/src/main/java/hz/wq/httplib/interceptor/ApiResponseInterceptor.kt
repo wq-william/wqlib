@@ -12,6 +12,7 @@ import okhttp3.Response
 
 class ApiResponseInterceptor : Interceptor {
 
+    val networkCodeErrorCode = -11001 //网络错误
     override fun intercept(chain: Interceptor.Chain): Response {
         try {
             val originalResponse = chain.proceed(chain.request())
@@ -58,13 +59,13 @@ class ApiResponseInterceptor : Interceptor {
 //            e.printStackTrace()
             // 处理网络错误
             val errorResponse = ApiResponse<Any>(
-                code = "NETWORK_ERROR",
+                code = "$networkCodeErrorCode",
                 message = e.message ?: "Unknown network error",
                 data = null,
-                httpStatusCode = 0,
-                httpMessage = e.message,
+                httpStatusCode = networkCodeErrorCode,
+                httpMessage = e.message ?: "Unknown network error",
                 httpHeaders = emptyMap(),
-                httpRawContent = null
+                httpRawContent = e.message ?: "Unknown network error"
             )
             val gson = Gson()
 //            val mediaType = "application/json".toMediaTypeOrNull()
@@ -74,7 +75,7 @@ class ApiResponseInterceptor : Interceptor {
             return Response.Builder()
                 .request(chain.request())
                 .protocol(Protocol.HTTP_1_1)
-                .code(205) // 自定义一个错误状态码
+                .code(200) // 自定义一个错误状态码
                 .message(e.message ?: "Unknown network error",)
                 .body(errorResponseBody)
                 .build()

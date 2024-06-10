@@ -17,13 +17,13 @@ class ApiResponseJsonDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
             jsonObject.has("code") -> jsonObject.get("code").asString
             jsonObject.has("cd") -> jsonObject.get("cd").asString
             jsonObject.has("resultCode") -> jsonObject.get("resultCode").asString
-            else -> "unknown"
+            else -> ""
         }
 
         val message = when {
             jsonObject.has("msg") -> jsonObject.get("msg").asString
             jsonObject.has("message") -> jsonObject.get("message").asString
-            else -> "unknown"
+            else -> ""
         }
         val httpStatusCode = when {
             jsonObject.has("httpStatusCode") -> jsonObject.get("httpStatusCode").asInt
@@ -31,13 +31,15 @@ class ApiResponseJsonDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
         }
         val httpMessage = when {
             jsonObject.has("httpMessage") -> jsonObject.get("httpMessage").asString
-            else -> "unknown"
+            else -> ""
         }
         val headsType = object : TypeToken<Map<String, List<String>>>() {}.type
         val httpHeaders: Map<String, List<String>>? = when {
             jsonObject.has("httpHeaders") -> try {
-                Gson().fromJson(jsonObject.get("httpHeaders").toString(), headsType)
+                val headsStr = jsonObject.getAsJsonObject("httpHeaders")
+                Gson().fromJson<Map<String, List<String>>>(headsStr, headsType)
             } catch (e: Exception) {
+                e.printStackTrace()
                 null
             }
 
@@ -45,7 +47,7 @@ class ApiResponseJsonDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
         }
         val httpRawContent = when {
             jsonObject.has("httpRawContent") -> jsonObject.get("httpRawContent").asString
-            else -> "unknown"
+            else -> ""
         }
 
         val dataElement = jsonObject.get("data") ?: jsonObject.get("result")

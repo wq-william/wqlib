@@ -7,6 +7,8 @@ import hz.wq.httplib.convert.CustomGsonConverterFactory
 import hz.wq.httplib.convert.NullOnEmptyConverterFactory
 import hz.wq.httplib.interceptor.WqHttpLogInterceptor
 import hz.wq.httplib.interceptor.ApiResponseInterceptor
+import hz.wq.httplib.interceptor.ExceptionInterceptor
+import hz.wq.httplib.interceptor.HeadersInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Converter
@@ -31,18 +33,15 @@ object HttpUtil {
                 interceptors?.forEach {
                     addInterceptor(it)
                 }
-//                addInterceptor(HeadersInterceptor())
-                addInterceptor(WqHttpLogInterceptor())
+                addInterceptor(HeadersInterceptor())
+                addInterceptor(ExceptionInterceptor())
 //                addInterceptor(HttpLoggingInterceptor().apply {
 //                    level = HttpLoggingInterceptor.Level.BODY
 //                })
                 addInterceptor(ApiResponseInterceptor())
-
-
+                addInterceptor(WqHttpLogInterceptor())
             }
-
             .build()
-
         val retrofit = Retrofit.Builder()
             .baseUrl(domain)
             .run {

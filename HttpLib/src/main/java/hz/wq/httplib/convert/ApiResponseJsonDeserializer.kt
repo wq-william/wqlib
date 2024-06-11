@@ -8,7 +8,6 @@ import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import hz.wq.httplib.bean.ApiResponse
 import hz.wq.httplib.bean.HttpResponse
-import hz.wq.otherlib.wqLog
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 

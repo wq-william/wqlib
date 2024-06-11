@@ -5,8 +5,16 @@ plugins {
 //    `java-library`
 //    alias(libs.plugins.mavenPublish)
     `maven-publish`
+//    `java-library` // 应用java-library插件，它会自动配置sourceSets
 
 }
+
+// 生成源码JAR的task
+//tasks.register("sources", Jar::class) {
+//    archiveClassifier.set("sources")
+////    from(sourceSets.main.get().allSource)
+//    from(sourceSets.get("main").allSource)
+//}
 //afterEvaluate {
 //    android.libraryVariants.each{
 //        publishing.publications.create(variant.name,MavenPublication){
@@ -32,14 +40,17 @@ plugins {
 publishing {
 
     publications {
+
         register<MavenPublication>("release") {
             groupId = "cn.wq"
             artifactId = "httpLibrary"
             version = "1.0"
 
-            afterEvaluate {
-                from(components["release"])
-            }
+//            afterEvaluate {
+//                from(components["release"])
+//            }
+            // 添加源码JAR到出版物
+//            artifact(tasks["sources"])
         }
 
         create<MavenPublication>("mavenJava") {
@@ -47,52 +58,63 @@ publishing {
             artifactId = "httpLibrary"
             version = "1.0"
 //            from(components["java"])
+//            artifact(tasks["sources"])
         }
     }
-    repositories {
-        maven {
-            setUrl("$buildDir/repo")
-        }
-    }
+//    repositories {
+//        maven {
+//            setUrl("$buildDir/repo")
+//        }
+//    }
 }
 // 定义 sourcesJar 任务
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("sources")
-    from(android.sourceSets["main"].java.srcDirs)
-}
-
-// 将 sourcesJar 作为一个工件
-afterEvaluate {
-    artifacts {
-        add("archives", sourcesJar.get())
-    }
-
-    publishing {
-        publications {
-            create<MavenPublication>("httpLibraryPublication") {
-                from(components["release"])
-                artifact(sourcesJar.get())
-            }
-        }
-    }
-}
+//val sourcesJar by tasks.registering(Jar::class) {
+//    archiveClassifier.set("sources")
+//    from(android.sourceSets["main"].java.srcDirs)
+//}
+//
+//// 将 sourcesJar 作为一个工件
+//afterEvaluate {
+//    artifacts {
+//        add("archives", sourcesJar.get())
+//    }
+//
+////    publishing {
+////        publications {
+////            create<MavenPublication>("httpLibraryPublication") {
+////                from(components["release"])
+////                artifact(sourcesJar.get())
+////            }
+////        }
+////    }
+//}
 android {
     namespace = "hz.wq.httplib"
     compileSdk = 34
 
     publishing {
-        multipleVariants {
-            includeBuildTypeValues("debug", "release")
-            withSourcesJar()
-            allVariants()
-            withJavadocJar()
-
-        }
+//        multipleVariants {
+//            includeBuildTypeValues("debug", "release")
+//            withSourcesJar()
+//            allVariants()
+//            withJavadocJar()
+//
+//        }
         singleVariant("release") {
             withSourcesJar()
             withJavadocJar()
         }
-
+//        multipleVariants("http") {
+//            includeBuildTypeValues("debug", "release")
+////            includeFlavorDimensionAndValues(
+////                dimension = "color",
+////                values = arrayOf("blue", "pink")
+////            )
+////            includeFlavorDimensionAndValues(
+////                dimension = "shape",
+////                values = arrayOf("square")
+////            )
+//        }
 
     }
 
@@ -124,7 +146,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    api(project(":otherLib"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -138,6 +159,6 @@ dependencies {
     api("com.squareup.retrofit2:retrofit-mock:2.9.0")
 
     api("com.squareup.okhttp3:logging-interceptor:3.12.2")
-//    implementation("com.blankj:utilcodex:1.31.1")
+    api("com.blankj:utilcodex:1.31.1")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }

@@ -24,4 +24,3 @@ dependencyResolutionManagement {
 rootProject.name = "wqLib"
 include(":app")
 include(":HttpLib")
-include(":otherLib")

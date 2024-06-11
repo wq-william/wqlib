@@ -3,7 +3,6 @@ package hz.wq.httplib.interceptor
 import com.google.gson.Gson
 import hz.wq.httplib.bean.ApiResponse
 import hz.wq.httplib.bean.HttpResponse
-import hz.wq.otherlib.wqLog
 import okhttp3.Interceptor
 import okhttp3.ResponseBody
 import okhttp3.Response

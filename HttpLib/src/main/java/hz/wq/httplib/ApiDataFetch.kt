@@ -1,7 +1,7 @@
 package hz.wq.httplib
 
 import com.google.gson.Gson
-import hz.wq.otherlib.wqLog
+import hz.wq.httplib.utils.wqLog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -9,7 +9,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.io.File
 
 
 /**

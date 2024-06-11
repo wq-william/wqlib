@@ -6,7 +6,7 @@ import hz.wq.httplib.bean.ApiResponse
 import hz.wq.httplib.interfaces.IDataProcessing
 import hz.wq.httplib.utils.Base64
 import hz.wq.httplib.utils.HttpUtil
-import hz.wq.otherlib.wqLog
+import hz.wq.httplib.utils.wqLog
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking

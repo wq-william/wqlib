@@ -1,4 +1,4 @@
-package hz.wq.otherlib
+package hz.wq.httplib.utils
 
 import com.blankj.utilcode.util.LogUtils
 import java.text.SimpleDateFormat

@@ -147,26 +147,26 @@ class ApiDataFetchTest {
         }
     }
 
-    private var isEncrypt = true
+    private var isEncrypt = false
     private val headMap = mutableMapOf(
         "isEncrypt" to "$isEncrypt"
     )
-    private var proData = object : IDataProcessing {
+    private var processingData = object : IDataProcessing {
         val key = "vYjYGUennkefwObVKJI8h15WXpjXk5p5"
+        val transformation = "AES/ECB/PKCS5Padding"
         override fun processingBeforeRequest(preSendKey: String?, preSendData: String): String {
             return if (isEncrypt) {
-                val b = EncryptUtils.encryptAES(preSendData.toByteArray(), key.toByteArray(), "AES/ECB/PKCS5Padding", null)
+                val b = EncryptUtils.encryptAES(preSendData.toByteArray(), key.toByteArray(), transformation, null)
                 Base64.encodeToString(b, Base64.DEFAULT)
             } else {
                 preSendData
             }
-
         }
 
         override fun processingAfterResponse(preResponseData: String): String {
             return if (isEncrypt) {
                 val encryptBytes: ByteArray = Base64.decode(preResponseData, Base64.DEFAULT)
-                val b = EncryptUtils.decryptAES(encryptBytes, key.toByteArray(), "AES/ECB/PKCS5Padding", null)
+                val b = EncryptUtils.decryptAES(encryptBytes, key.toByteArray(), transformation, null)
                 String(b);
             } else {
                 preResponseData
@@ -185,23 +185,23 @@ class ApiDataFetchTest {
         val content = Gson().toJson(map)
         "加密前：$content".wqLog()
 
-        val encrypt = proData.processingBeforeRequest("", content)
+        val encrypt = processingData.processingBeforeRequest("", content)
         "加密后：$encrypt".wqLog()
 
-        val decrypt = proData.processingAfterResponse(encrypt)
+        val decrypt = processingData.processingAfterResponse(encrypt)
         "解密后：$decrypt".wqLog()
 
         var s =
             "gJ6RP37QocZ40KAKbfAh5Rp9+ChgkUQzZ3AIBhCMk6CrtJwmgIEPay8/tinpVMqEoRyyrvrM2mZA93g+H9x5ON60Fn3Q7dPkgpFdJIvtO+f0+BRU3wQkqnDu8Yiv2x/2MG44bjMzZU0Fl7KIEfWR35GyhQD/J0b2wB8xYqbpboXIcbmrR6SYCb+CBeo+u/Mr"
-        "解密后：${proData.processingAfterResponse(s)}".wqLog()
+        "解密后：${processingData.processingAfterResponse(s)}".wqLog()
         s = "CjACj1TepnCuSPMm0H94Thp9+ChgkUQzZ3AIBhCMk6BqSNyQFy69TlyIL+s2CTHenW2Al5nnESYwkQ2zesAoq6JQsrFaUM7p04DX2wUZ839ApXqiDpPktHvBSEF+VQzVAaofUdYW8OBSHoi4j+LyISOTos9JFaq5f4DXD6o3dKg="
-        "解密后11：${proData.processingAfterResponse(s)}".wqLog()
+        "解密后11：${processingData.processingAfterResponse(s)}".wqLog()
         s =
             "gJ6RP37QocZ40KAKbfAh5Rp9+ChgkUQzZ3AIBhCMk6CrtJwmgIEPay8/tinpVMqEoRyyrvrM2mZA93g+H9x5OCHX0505tPRQVxKVrnCO/3y1mRT9V5Zpg/qEcTnJeulqMG44bjMzZU0Fl7KIEfWR35GyhQD/J0b2wB8xYqbpboXIcbmrR6SYCb+CBeo+u/Mr"
-        "解密后22：${proData.processingAfterResponse(s)}".wqLog()
+        "解密后22：${processingData.processingAfterResponse(s)}".wqLog()
         s =
             "gJ6RP37QocZ40KAKbfAh5Rp9+ChgkUQzZ3AIBhCMk6CrtJwmgIEPay8/tinpVMqEoRyyrvrM2mZA93g+H9x5OCHX0505tPRQVxKVrnCO/3yhw7BvfT5bVWAmltSwoGbTMG44bjMzZU0Fl7KIEfWR35GyhQD/J0b2wB8xYqbpboXIcbmrR6SYCb+CBeo+u/Mr"
-        "解密后33：${proData.processingAfterResponse(s)}".wqLog()
+        "解密后33：${processingData.processingAfterResponse(s)}".wqLog()
     }
 
     @Test
@@ -230,7 +230,7 @@ class ApiDataFetchTest {
                 serviceFunction = ApiService::login,
                 param = body,
                 headMap = headMap,
-                dataProcessing = proData
+                dataProcessing = if (isEncrypt) processingData else null
             )
 //            var result = apiService.login(body)
 //            "原始数据：${result}".wqLog()

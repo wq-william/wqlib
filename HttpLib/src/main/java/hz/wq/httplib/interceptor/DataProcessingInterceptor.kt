@@ -43,6 +43,7 @@ class DataProcessingInterceptor(private val dataProcessing: IDataProcessing?) : 
                     val decodedString = URLDecoder.decode(originalContent, "UTF-8")
                     "WqApi FormBody 请求数据 (加工前)：$decodedString".wqLog()
                     val afterProcessingContent = dataProcessing.processingBeforeRequest(formBody.encodedName(i), decodedString)
+                    "WqApi FormBody 请求数据(加工后)：$afterProcessingContent".wqLog()
                     formBuilder.add(formBody.encodedName(i), afterProcessingContent)
                 }
                 val newRequestBody = formBuilder.build()
@@ -59,8 +60,9 @@ class DataProcessingInterceptor(private val dataProcessing: IDataProcessing?) : 
                     originalBody.writeTo(buffer)
                     val originalContent = buffer.readUtf8()
                     "WqApi RequestBody 请求数据(加工前)：$originalContent".wqLog()
-                    val encryptedContent = dataProcessing.processingBeforeRequest(null, originalContent)
-                    val encryptedRequestBody = RequestBody.create(originalBody.contentType(), encryptedContent)
+                    val afterProcessingContent = dataProcessing.processingBeforeRequest(null, originalContent)
+                    "WqApi RequestBody 请求数据(加工后)：$afterProcessingContent".wqLog()
+                    val encryptedRequestBody = RequestBody.create(originalBody.contentType(), afterProcessingContent)
                     // 创建新的加密后的请求
                     request.newBuilder()
                         .method(request.method(), encryptedRequestBody)
@@ -102,7 +104,6 @@ class DataProcessingInterceptor(private val dataProcessing: IDataProcessing?) : 
                 val original = responseBody!!.string()
                 "WqApi response数据(加工前)：$original".wqLog()
                 var decryptedContent = dataProcessing.processingAfterResponse(original)
-
                 "WqApi response数据(加工后)：$decryptedContent".wqLog()
                 ResponseBody.create(responseBody!!.contentType(), decryptedContent)
             } else {

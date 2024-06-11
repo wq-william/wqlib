@@ -42,55 +42,56 @@ publishing {
             }
         }
 
-//        create<MavenPublication>("mavenJava") {
-//            groupId = "cn.wq"
-//            artifactId = "httpLibrary"
-//            version = "1.0"
-////            from(components["java"])
-//        }
+        create<MavenPublication>("mavenJava") {
+            groupId = "cn.wq"
+            artifactId = "httpLibrary"
+            version = "1.0"
+//            from(components["java"])
+        }
     }
-//    repositories {
-//        maven {
-//            setUrl("$buildDir/repo")
-//        }
-//    }
+    repositories {
+        maven {
+            setUrl("$buildDir/repo")
+        }
+    }
 }
 // 定义 sourcesJar 任务
-//val sourcesJar by tasks.registering(Jar::class) {
-//    archiveClassifier.set("sources")
-//    from(android.sourceSets["main"].java.srcDirs)
-//}
-//
-//// 将 sourcesJar 作为一个工件
-//afterEvaluate {
-//    artifacts {
-//        add("archives", sourcesJar.get())
-//    }
-//
-//    publishing {
-//        publications {
-//            create<MavenPublication>("httpLibraryPublication") {
-//                from(components["release"])
-//                artifact(sourcesJar.get())
-//            }
-//        }
-//    }
-//}
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets["main"].java.srcDirs)
+}
+
+// 将 sourcesJar 作为一个工件
+afterEvaluate {
+    artifacts {
+        add("archives", sourcesJar.get())
+    }
+
+    publishing {
+        publications {
+            create<MavenPublication>("httpLibraryPublication") {
+                from(components["release"])
+                artifact(sourcesJar.get())
+            }
+        }
+    }
+}
 android {
     namespace = "hz.wq.httplib"
     compileSdk = 34
 
     publishing {
         multipleVariants {
+            includeBuildTypeValues("debug", "release")
             withSourcesJar()
             allVariants()
             withJavadocJar()
 
         }
-//        singleVariant("release") {
-//            withSourcesJar()
-//
-//        }
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
 
 
     }

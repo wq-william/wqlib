@@ -14,24 +14,69 @@ publishing {
                 from(components["release"])
             }
         }
-//        create<MavenPublication>("mavenJava") {
-//            groupId = "cn.wq"
-//            artifactId = "otherLibrary"
-//            version = "1.0"
-////            from(components["java"])
-//        }
+        create<MavenPublication>("mavenJava") {
+            groupId = "cn.wq"
+            artifactId = "otherLibrary"
+            version = "1.0"
+//            from(components["java"])
+        }
     }
-//    repositories {
-//        maven {
-//            setUrl("$buildDir/repo")
-//        }
-//    }
+    repositories {
+        maven {
+            setUrl("$buildDir/repo")
+        }
+    }
 
+}
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets["main"].java.srcDirs)
+}
+
+// 将 sourcesJar 作为一个工件
+afterEvaluate {
+    artifacts {
+        add("archives", sourcesJar.get())
+    }
+
+    publishing {
+        publications {
+            create<MavenPublication>("otherLibraryPublication") {
+                from(components["release"])
+                artifact(sourcesJar.get())
+            }
+        }
+    }
 }
 android {
     namespace = "hz.wq.otherlib"
     compileSdk = 34
+    publishing {
+//        multipleVariants("custom") {
+//            includeBuildTypeValues("debug", "release")
+////            includeFlavorDimensionAndValues(
+////                dimension = "color",
+////                values = arrayOf("blue", "pink")
+////            )
+////            includeFlavorDimensionAndValues(
+////                dimension = "shape",
+////                values = arrayOf("square")
+////            )
+//        }
+        multipleVariants {
+            includeBuildTypeValues("debug", "release")
+            withSourcesJar()
+            allVariants()
+            withJavadocJar()
 
+        }
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+
+
+    }
     defaultConfig {
         minSdk = 24
 

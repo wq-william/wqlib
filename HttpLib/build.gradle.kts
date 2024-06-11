@@ -4,15 +4,15 @@ plugins {
     `maven-publish`
 }
 // 定义生成 sourcesJar 和 javadocJar 的任务
-tasks.register<Jar>("sourcesJar") {
-    archiveClassifier.set("sources")
-    from(android.sourceSets["main"].java.srcDirs)
-}
-
-tasks.register<Jar>("javadocJar") {
-    archiveClassifier.set("javadoc")
-    from(tasks.named("javadoc"))
-}
+//tasks.register<Jar>("sourcesJar") {
+//    archiveClassifier.set("sources")
+//    from(android.sourceSets["main"].java.srcDirs)
+//}
+//
+//tasks.register<Jar>("javadocJar") {
+//    archiveClassifier.set("javadoc")
+//    from(tasks.named("javadoc"))
+//}
 publishing {
     publications {
 //        register<MavenPublication>("release") {
@@ -38,11 +38,14 @@ publishing {
             version = "1.0"
 
             // 添加源码JAR和Javadoc到发布物
-            artifact(tasks["sourcesJar"])
+//            artifact(tasks["sourcesJar"])
 //            artifact(tasks["javadocJar"])
 //            afterEvaluate {
 //                artifact(tasks["sourcesJar"])
 //            }
+            afterEvaluate {
+                from(components["release"])
+            }
         }
 
     }
@@ -57,17 +60,16 @@ android {
         enable = true
     }
     publishing {
-//        multipleVariants {
+        multipleVariants {
 //            includeBuildTypeValues("debug", "release")
-//            withSourcesJar()
-//            allVariants()
-//            withJavadocJar()
-//
-//        }
-        singleVariant("release") {
             withSourcesJar()
+            allVariants()
             withJavadocJar()
         }
+//        singleVariant("release") {
+//            withSourcesJar()
+//            withJavadocJar()
+//        }
 
     }
 //

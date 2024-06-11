@@ -4,8 +4,11 @@ import com.google.gson.Gson
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
+import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import hz.wq.httplib.bean.ApiResponse
+import hz.wq.httplib.bean.HttpResponse
+import hz.wq.otherlib.wqLog
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -13,18 +16,8 @@ class ApiResponseJsonDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): ApiResponse<T> {
         val jsonObject = json.asJsonObject
 
-        val code = when {
-            jsonObject.has("code") -> jsonObject.get("code").asString
-            jsonObject.has("cd") -> jsonObject.get("cd").asString
-            jsonObject.has("resultCode") -> jsonObject.get("resultCode").asString
-            else -> ""
-        }
 
-        val message = when {
-            jsonObject.has("msg") -> jsonObject.get("msg").asString
-            jsonObject.has("message") -> jsonObject.get("message").asString
-            else -> ""
-        }
+        //http相关数据解析
         val httpStatusCode = when {
             jsonObject.has("httpStatusCode") -> jsonObject.get("httpStatusCode").asInt
             else -> -1
@@ -50,19 +43,46 @@ class ApiResponseJsonDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
             else -> ""
         }
 
-        val dataElement = jsonObject.get("data") ?: jsonObject.get("result")
-        val actualTypeArgument = (typeOfT as ParameterizedType).actualTypeArguments[0]
-
-        val data: T? = if (actualTypeArgument == String::class.java) {
-            if (dataElement == null) {
-                null
-            } else {
-                dataElement.toString() as T
-            }
+        //正式解析T
+        return if (httpRawContent.isNullOrEmpty()) {
+            ApiResponse("-11001", "未找到响应数据", null, HttpResponse(httpStatusCode, httpMessage, httpHeaders, httpRawContent))
         } else {
-            context.deserialize(dataElement, (typeOfT as ParameterizedType).actualTypeArguments[0])
+            val actualTypeArgument = (typeOfT as ParameterizedType).actualTypeArguments[0]
+            val rawElement = JsonParser().parse(httpRawContent).asJsonObject
+
+            val code = when {
+                rawElement.has("code") -> rawElement.get("code").asString
+                rawElement.has("cd") -> rawElement.get("cd").asString
+                rawElement.has("resultCode") -> rawElement.get("resultCode").asString
+                else -> ""
+            }
+            val message = when {
+                rawElement.has("msg") -> rawElement.get("msg").asString
+                rawElement.has("message") -> rawElement.get("message").asString
+                else -> ""
+            }
+            val dataElement = when {
+                rawElement.has("data") -> rawElement.get("data")
+                rawElement.has("result") -> rawElement.get("result")
+                else -> null
+            }
+//            val dataStr :String? = dataElement.toString()
+
+            val data: T? = when {
+                dataElement?.isJsonNull == true -> null
+                actualTypeArgument == String::class.java -> dataElement.toString() as T
+                else -> {
+                    try {
+                        context.deserialize<T>(dataElement, typeOfT.actualTypeArguments[0])
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        null
+                    }
+                }
+            }
+            ApiResponse(code, message, data, HttpResponse(httpStatusCode, httpMessage, httpHeaders, httpRawContent))
         }
 
-        return ApiResponse(code, message, data, httpStatusCode, httpMessage, httpHeaders, httpRawContent)
+
     }
 }

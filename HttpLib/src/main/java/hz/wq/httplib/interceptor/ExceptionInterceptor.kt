@@ -2,6 +2,7 @@ package hz.wq.httplib.interceptor
 
 import com.google.gson.Gson
 import hz.wq.httplib.bean.ApiResponse
+import hz.wq.httplib.bean.HttpResponse
 import okhttp3.Interceptor
 import okhttp3.MediaType
 import okhttp3.Protocol
@@ -25,10 +26,12 @@ class ExceptionInterceptor : Interceptor {
                 code = "$networkCodeErrorCode",
                 message = "Unknown network error",
                 data = null,
-                httpStatusCode = networkCodeErrorCode,
-                httpMessage = "Unknown network error",
-                httpHeaders = emptyMap(),
-                httpRawContent = e.stackTraceToString() ?: "Unknown network error"
+                HttpResponse(
+                    httpStatusCode = networkCodeErrorCode,
+                    httpMessage = "Unknown network error",
+                    httpHeaders = emptyMap(),
+                    httpRawContent = e.stackTraceToString() ?: "Unknown network error"
+                )
             )
             val gson = Gson()
 //            val mediaType = "application/json".toMediaTypeOrNull()

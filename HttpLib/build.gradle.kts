@@ -137,5 +137,6 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit-mock:2.9.0")
 
     implementation("com.squareup.okhttp3:logging-interceptor:3.12.2")
+    implementation("com.blankj:utilcodex:1.31.1")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }

@@ -7,6 +7,7 @@ import hz.wq.httplib.interfaces.IDataProcessing
 import hz.wq.httplib.utils.Base64
 import hz.wq.httplib.utils.HttpUtil
 import hz.wq.otherlib.wqLog
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
@@ -65,7 +66,7 @@ data class LoginResultBean(
     val validity: Double?
 )
 
-class ApiDataFetchTest {
+public class ApiDataFetchTest {
     @Test
     fun fetchData_Test_FormUrlEncoded() = runTest {
         launch {
@@ -140,6 +141,29 @@ class ApiDataFetchTest {
                 ApiService::class.java,
                 ApiService::login,
                 body
+            )
+//            var result = apiService.login(body)
+            "原始数据：${result}".wqLog()
+            "解析完成数据：${result.data}".wqLog()
+        }
+    }
+    @Test
+    fun fetchData_Test_sendApi_login_java(){
+        GlobalScope.launch {
+            val paramBean = LoginParamBean(
+                "18268020591", "12345678",
+                imei = "A10000126F0C1B",
+                devid = "F68C6240599",
+                appVersion = "0.0.1",
+            )
+            val json = Gson().toJson(paramBean)
+            val body = RequestBody.create(MediaType.parse("application/json"), json)
+            var result = HttpUtil.sendApi(
+                domain,
+                ApiService::class.java,
+                ApiService::login,
+                body,
+                headMap
             )
 //            var result = apiService.login(body)
             "原始数据：${result}".wqLog()
@@ -237,6 +261,7 @@ class ApiDataFetchTest {
             "解析完成数据：${result.data}".wqLog()
         }
     }
+
 
 
 }

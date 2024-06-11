@@ -120,7 +120,6 @@ object HttpUtil {
         interceptors: Array<Interceptor>? = null,
         converterFactories: Array<Converter.Factory>? = null,
     ): ApiResponse<Result> {
-
         val apiService = getApiService(domain, service, headMap, dataProcessing, interceptors, converterFactories)
         val result = apiService.serviceFunction()
         return result
@@ -153,40 +152,4 @@ object HttpUtil {
         val result = apiService.serviceFunction(param)
         return result
     }
-
-    /**
-     * 主要是Java代码调用
-     * 传入CoroutineScope
-     * 发送Api ，获取Result结果
-     *
-     * @param coroutineScope  协程作用域
-     * @param domain    域名
-     * @param service   Class: 例：ApiServiceXXX::class.java
-     * @param serviceFunction   ApiService的方法
-     * @param param 参数
-     * @param callback<Result> 回调
-     * @param headMap   头
-     * @param dataProcessing    数据加工
-     * @param interceptors  拦截器list  -  扩展更多使用方式
-     * @param converterFactories   转换工厂list  -  扩展更多使用方式
-     */
-    fun <ServiceClas, Param, Result> sendApiByJava(
-        coroutineScope: CoroutineScope,
-        domain: String,
-        service: Class<ServiceClas>,
-        serviceFunction: suspend ServiceClas.(Param) -> ApiResponse<Result>, // 高阶函数，接受一个参数 T
-        param: Param,
-        callback: ApiResponseCallback<Result>?,
-        headMap: Map<String, String>? = null,
-        dataProcessing: IDataProcessing? = null,
-        interceptors: Array<Interceptor>? = null,
-        converterFactories: Array<Converter.Factory>? = null,
-    ) {
-        coroutineScope.launch {
-            val apiService: ServiceClas = getApiService(domain, service, headMap, dataProcessing, interceptors, converterFactories)
-            val result = apiService.serviceFunction(param)
-            callback?.onResult(result)
-        }
-    }
-
 }

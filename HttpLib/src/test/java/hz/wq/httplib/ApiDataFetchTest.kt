@@ -105,10 +105,7 @@ public class ApiDataFetchTest {
     fun fetchData_Test_login() = runTest {
 
         launch {
-            val headMap = mutableMapOf(
-                "isEncrypt" to "true"
-            )
-            val apiService = HttpUtil.getApiService(domain, ApiService::class.java, headMap)
+            val apiService = HttpUtil.getApiService(domain, ApiService::class.java, headMap,processingData)
 
             val paramBean = LoginParamBean(
                 "18268020591", "12345678",

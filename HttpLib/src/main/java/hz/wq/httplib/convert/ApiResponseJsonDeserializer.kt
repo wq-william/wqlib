@@ -8,11 +8,13 @@ import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import hz.wq.httplib.bean.ApiResponse
 import hz.wq.httplib.bean.HttpResponse
+import hz.wq.httplib.utils.wqLog
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
 class ApiResponseJsonDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): ApiResponse<T> {
+        "Json解析：".wqLog()
         val jsonObject = json.asJsonObject
 
 
@@ -47,6 +49,7 @@ class ApiResponseJsonDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
             ApiResponse("-11001", "未找到响应数据", null, HttpResponse(httpStatusCode, httpMessage, httpHeaders, httpRawContent))
         } else {
             val actualTypeArgument = (typeOfT as ParameterizedType).actualTypeArguments[0]
+
             val rawElement = JsonParser().parse(httpRawContent).asJsonObject
 
             val code = when {

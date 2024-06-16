@@ -14,9 +14,7 @@ import java.lang.reflect.Type
 
 class ApiResponseJsonDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): ApiResponse<T> {
-        "Json解析：".wqLog()
         val jsonObject = json.asJsonObject
-
 
         //http相关数据解析
         val httpStatusCode = when {
@@ -48,41 +46,46 @@ class ApiResponseJsonDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
         return if (httpRawContent.isNullOrEmpty()) {
             ApiResponse("-11001", "未找到响应数据", null, HttpResponse(httpStatusCode, httpMessage, httpHeaders, httpRawContent))
         } else {
-            val actualTypeArgument = (typeOfT as ParameterizedType).actualTypeArguments[0]
+            try {
+                val actualTypeArgument = (typeOfT as ParameterizedType).actualTypeArguments[0]
 
-            val rawElement = JsonParser().parse(httpRawContent).asJsonObject
+                val rawElement = JsonParser().parse(httpRawContent).asJsonObject
 
-            val code = when {
-                rawElement.has("code") -> rawElement.get("code").asString
-                rawElement.has("cd") -> rawElement.get("cd").asString
-                rawElement.has("resultCode") -> rawElement.get("resultCode").asString
-                else -> ""
-            }
-            val message = when {
-                rawElement.has("msg") -> rawElement.get("msg").asString
-                rawElement.has("message") -> rawElement.get("message").asString
-                else -> ""
-            }
-            val dataElement = when {
-                rawElement.has("data") -> rawElement.get("data")
-                rawElement.has("result") -> rawElement.get("result")
-                else -> null
-            }
+                val code = when {
+                    rawElement.has("code") -> rawElement.get("code").asString
+                    rawElement.has("cd") -> rawElement.get("cd").asString
+                    rawElement.has("resultCode") -> rawElement.get("resultCode").asString
+                    else -> ""
+                }
+                val message = when {
+                    rawElement.has("msg") -> rawElement.get("msg").asString
+                    rawElement.has("message") -> rawElement.get("message").asString
+                    else -> ""
+                }
+                val dataElement = when {
+                    rawElement.has("data") -> rawElement.get("data")
+                    rawElement.has("result") -> rawElement.get("result")
+                    else -> null
+                }
 //            val dataStr :String? = dataElement.toString()
 
-            val data: T? = when {
-                dataElement?.isJsonNull == true -> null
-                actualTypeArgument == String::class.java -> dataElement.toString() as T
-                else -> {
-                    try {
-                        context.deserialize<T>(dataElement, typeOfT.actualTypeArguments[0])
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        null
+                val data: T? = when {
+                    dataElement?.isJsonNull == true -> null
+                    actualTypeArgument == String::class.java -> dataElement.toString() as T
+                    else -> {
+                        try {
+                            context.deserialize<T>(dataElement, typeOfT.actualTypeArguments[0])
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            null
+                        }
                     }
                 }
+                ApiResponse(code, message, data, HttpResponse(httpStatusCode, httpMessage, httpHeaders, httpRawContent))
+            } catch (e: Exception) {
+                e.printStackTrace()
+                ApiResponse("-11002", "解析数据异常", null, HttpResponse(httpStatusCode, httpMessage, httpHeaders, httpRawContent))
             }
-            ApiResponse(code, message, data, HttpResponse(httpStatusCode, httpMessage, httpHeaders, httpRawContent))
         }
 
 

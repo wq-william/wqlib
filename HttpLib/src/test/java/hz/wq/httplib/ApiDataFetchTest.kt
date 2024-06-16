@@ -32,7 +32,7 @@ interface ApiService {
     suspend fun checkUpdateApp(@Body body: RequestBody): ApiResponse<String>
     @FormUrlEncoded
     @POST("/emc/IRz")
-    suspend fun deviceAuth(@Field("pack") pack: String): String
+    suspend fun deviceAuth(@Field("pack") pack: String): ApiResponse<String>
     /**
      * 登录
      */

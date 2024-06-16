@@ -3,6 +3,7 @@ package hz.wq.httplib.convert
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
 import com.google.gson.reflect.TypeToken
+import hz.wq.httplib.utils.wqLog
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -24,12 +25,13 @@ class CustomStringConverterFactory private constructor(private val gson: Gson) :
         annotations: Array<Annotation>,
         retrofit: Retrofit
     ): Converter<ResponseBody, *>? {
-
-        if (type == type::class.java) {
+        if (type == String::class.java) {
+            "CustomStringConverterFactory String".wqLog()
             val adapter: TypeAdapter<*> = gson.getAdapter(TypeToken.get(type))
             return GsonResponseBodyConverter(gson, adapter)
+        } else {
+            return null
         }
-        return null
     }
 
     private class GsonResponseBodyConverter<T>(

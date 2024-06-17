@@ -3,47 +3,12 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     `maven-publish`
 }
-// 定义生成 sourcesJar 和 javadocJar 的任务
-//tasks.register<Jar>("sourcesJar") {
-//    archiveClassifier.set("sources")
-//    from(android.sourceSets["main"].java.srcDirs)
-//}
-//
-//tasks.register<Jar>("javadocJar") {
-//    archiveClassifier.set("javadoc")
-//    from(tasks.named("javadoc"))
-//}
 publishing {
     publications {
-//        register<MavenPublication>("release") {
-//            groupId = "cn.wq"
-//            artifactId = "httpLibrary"
-//            version = "1.0"
-//
-//            // 添加源码JAR和Javadoc到发布物
-//            artifact(tasks.named("sourcesJar"))
-//            artifact(tasks.named("javadocJar"))
-//        }
-//        create<MavenPublication>("httpLibraryPublication") {
-//        register<MavenPublication>("release") {
-//            groupId = "cn.wq"
-//            artifactId = "httpLibrary"
-//            version = "1.0"
-//            artifact(tasks["sourcesJar"])
-//        }
         create<MavenPublication>("release") {
-//            from(components["main"])
-//            groupId = "cn.wq"
             groupId = "io.github.wq-william"
             artifactId = "httpLibrary"
-            version = "0.0.2"
-
-            // 添加源码JAR和Javadoc到发布物
-//            artifact(tasks["sourcesJar"])
-//            artifact(tasks["javadocJar"])
-//            afterEvaluate {
-//                artifact(tasks["sourcesJar"])
-//            }
+            version = "0.0.4"
             afterEvaluate {
                 from(components["release"])
             }
@@ -80,7 +45,6 @@ publishing {
 
 }
 
-
 android {
     namespace = "hz.wq.httplib"
     compileSdk = 34
@@ -89,7 +53,6 @@ android {
     }
     publishing {
         multipleVariants {
-//            includeBuildTypeValues("debug", "release")
             withSourcesJar()
             allVariants()
             withJavadocJar()
@@ -98,9 +61,7 @@ android {
 //            withSourcesJar()
 //            withJavadocJar()
 //        }
-
     }
-//
     defaultConfig {
         aarMetadata {
             minSdk = 24
@@ -123,13 +84,6 @@ android {
         jvmTarget = "1.8"
     }
 }
-//val sourcesJar by tasks.registering(Jar::class) {
-//    archiveClassifier.set("sources")
-//    from(android.sourceSets["main"].java.srcDirs)
-//}
-
-
-
 
 dependencies {
 

@@ -14,11 +14,13 @@ import java.lang.reflect.Type
 
 class ApiResponseStringDeserializer : JsonDeserializer<String> {
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): String {
+        "ApiResponseStringDeserializer".wqLog()
         val jsonObject = json.asJsonObject
         val httpRawContent = when {
             jsonObject.has("httpRawContent") -> jsonObject.get("httpRawContent").asString
             else -> ""
         }
+        "ApiResponseStringDeserializer：$httpRawContent".wqLog()
         return httpRawContent
     }
 }

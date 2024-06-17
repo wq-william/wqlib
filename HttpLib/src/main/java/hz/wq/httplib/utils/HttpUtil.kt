@@ -22,6 +22,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.util.concurrent.TimeUnit
 
 /**
  * Http util
@@ -48,17 +49,22 @@ object HttpUtil {
     ): Retrofit {
         val okHttpClient = OkHttpClient.Builder()
             .run {
+                connectTimeout(30, TimeUnit.SECONDS)  // 连接超时
+                readTimeout(30, TimeUnit.SECONDS)     // 读取超时
+                writeTimeout(30, TimeUnit.SECONDS)    // 写入超时
                 interceptors?.forEach {
                     addInterceptor(it)
                 }
                 addInterceptor(HeadersInterceptor(headMap))
-                addInterceptor(ExceptionInterceptor())
+
 //                addInterceptor(HttpLoggingInterceptor().apply {
 //                    level = HttpLoggingInterceptor.Level.BODY
 //                })
                 addInterceptor(HttpResponseInterceptor())
                 addInterceptor(DataProcessingInterceptor(dataProcessing))
                 addInterceptor(WqHttpLogInterceptor())
+
+//                addInterceptor(ExceptionInterceptor())
             }
             .build()
         val retrofit = Retrofit.Builder()

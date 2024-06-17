@@ -26,7 +26,7 @@ class CustomStringConverterFactory private constructor(private val gson: Gson) :
         retrofit: Retrofit
     ): Converter<ResponseBody, *>? {
         if (type == String::class.java) {
-            "CustomStringConverterFactory String".wqLog()
+//            "CustomStringConverterFactory String".wqLog()
             val adapter: TypeAdapter<*> = gson.getAdapter(TypeToken.get(type))
             return GsonResponseBodyConverter(gson, adapter)
         } else {

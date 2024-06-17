@@ -32,13 +32,15 @@ interface ApiService {
     suspend fun checkUpdateApp(@Body body: RequestBody): ApiResponse<String>
     @FormUrlEncoded
     @POST("/emc/IRz")
-    suspend fun deviceAuth(@Field("pack") pack: String): ApiResponse<String>
+    suspend fun deviceAuth(@Field("pack") pack: String): String
     /**
      * 登录
      */
     @POST("/deviceauth/api/user/v1/login")
     suspend fun login(@Body body: RequestBody): ApiResponse<LoginResultBean>
 
+    @POST("/api/cc/data/add")
+    suspend fun addOne(@Body body: RequestBody): String
 }
 
 data class CheckUpdateAppParamBean(
@@ -271,11 +273,35 @@ public class ApiDataFetchTest {
             val pack =
                 "gkDqoB%2BIMsGQO9soNi8sZZO5e2UttYj0xX37LVY%2BBDpXz97QgFQKOO9G8rb3%20IrWS1JQAYubA7zvIcRULuKpPc7VsfNzwThRcQC7PS0fv01Hq6Oipp%2F3o3tF2%20uApxrvyU3OkB5Dj2bulB9afctPwGjXqypC9CS7PHMv%2FCutcLu7lWTX243qWG%20WhAG5Tm8a0Px2uDKJc85dH4tpYSiqBWm18nN8SmcVxmB"
 
-            val apiService = HttpUtil.getApiService("http://xfdz-test.tpddns.cn:8082", ApiService::class.java)
+            val apiService = HttpUtil.getApiService("http://xfdz-test1.tpddns.cn:8082", ApiService::class.java)
             var result = apiService.deviceAuth(pack)
 //            var result = apiService.login(body)
 //            "原始数据：${result}".wqLog()
             "result：${result}".wqLog()
+        }
+    }
+    @Test
+    fun fetchData_Test_sendApi_成测() = runTest {
+
+        "fetchData_Test_sendApi_成测".wqLog()
+        launch {
+
+            val pack =
+                "gkDqoB%2BIMsGQO9soNi8sZZO5e2UttYj0xX37LVY%2BBDpXz97QgFQKOO9G8rb3%20IrWS1JQAYubA7zvIcRULuKpPc7VsfNzwThRcQC7PS0fv01Hq6Oipp%2F3o3tF2%20uApxrvyU3OkB5Dj2bulB9afctPwGjXqypC9CS7PHMv%2FCutcLu7lWTX243qWG%20WhAG5Tm8a0Px2uDKJc85dH4tpYSiqBWm18nN8SmcVxmB"
+
+            val apiService = HttpUtil.getApiService("http://47.96.65.102:8098", ApiService::class.java)
+
+
+            val body = RequestBody.create(MediaType.parse("application/json"), pack)
+            try {
+                var result = apiService.addOne(body)
+//            var result = apiService.login(body)
+//            "原始数据：${result}".wqLog()
+                "result：${result}".wqLog()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                "Exception".wqLog()
+            }
         }
     }
 

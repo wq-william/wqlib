@@ -115,9 +115,10 @@ object HttpUtil {
         headMap: Map<String, String>? = null,
         dataProcessing: IDataProcessing? = null,
         interceptors: Array<Interceptor>? = null,
-        converterFactories: Array<Converter.Factory>? = null
+        converterFactories: Array<Converter.Factory>? = null,
+        isNeedAllLog: Boolean = false
     ): T {
-        return getDefaultRetrofit<T>(domain, headMap, dataProcessing, interceptors, converterFactories).create(service)
+        return getDefaultRetrofit<T>(domain, headMap, dataProcessing, interceptors, converterFactories,isNeedAllLog).create(service)
     }
 
     /**

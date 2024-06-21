@@ -30,9 +30,11 @@ interface ApiService {
 
     @POST("/device/app/api/upgrade/v1/check")
     suspend fun checkUpdateApp(@Body body: RequestBody): ApiResponse<String>
+
     @FormUrlEncoded
     @POST("/emc/IRz")
     suspend fun deviceAuth(@Field("pack") pack: String): String
+
     /**
      * 登录
      */
@@ -110,7 +112,7 @@ public class ApiDataFetchTest {
     fun fetchData_Test_login() = runTest {
 
         launch {
-            val apiService = HttpUtil.getApiService(domain, ApiService::class.java, headMap,processingData)
+            val apiService = HttpUtil.getApiService(domain, ApiService::class.java, headMap, processingData)
 
             val paramBean = LoginParamBean(
                 "18268020591", "12345678",
@@ -149,8 +151,9 @@ public class ApiDataFetchTest {
             "解析完成数据：${result.data}".wqLog()
         }
     }
+
     @Test
-    fun fetchData_Test_sendApi_login_java(){
+    fun fetchData_Test_sendApi_login_java() {
         GlobalScope.launch {
             val paramBean = LoginParamBean(
                 "18268020591", "12345678",
@@ -273,13 +276,14 @@ public class ApiDataFetchTest {
             val pack =
                 "gkDqoB%2BIMsGQO9soNi8sZZO5e2UttYj0xX37LVY%2BBDpXz97QgFQKOO9G8rb3%20IrWS1JQAYubA7zvIcRULuKpPc7VsfNzwThRcQC7PS0fv01Hq6Oipp%2F3o3tF2%20uApxrvyU3OkB5Dj2bulB9afctPwGjXqypC9CS7PHMv%2FCutcLu7lWTX243qWG%20WhAG5Tm8a0Px2uDKJc85dH4tpYSiqBWm18nN8SmcVxmB"
 
-            val apiService = HttpUtil.getApiService("http://xfdz-test1.tpddns.cn:8082", ApiService::class.java)
+            val apiService = HttpUtil.getApiService("http://xfdz-test.tpddns.cn:8082", ApiService::class.java)
             var result = apiService.deviceAuth(pack)
 //            var result = apiService.login(body)
 //            "原始数据：${result}".wqLog()
             "result：${result}".wqLog()
         }
     }
+
     @Test
     fun fetchData_Test_sendApi_成测() = runTest {
 
@@ -289,7 +293,8 @@ public class ApiDataFetchTest {
             val pack =
                 "gkDqoB%2BIMsGQO9soNi8sZZO5e2UttYj0xX37LVY%2BBDpXz97QgFQKOO9G8rb3%20IrWS1JQAYubA7zvIcRULuKpPc7VsfNzwThRcQC7PS0fv01Hq6Oipp%2F3o3tF2%20uApxrvyU3OkB5Dj2bulB9afctPwGjXqypC9CS7PHMv%2FCutcLu7lWTX243qWG%20WhAG5Tm8a0Px2uDKJc85dH4tpYSiqBWm18nN8SmcVxmB"
 
-            val apiService = HttpUtil.getApiService("http://47.96.65.102:809", ApiService::class.java)
+            val apiService = HttpUtil.getApiService("http://47.96.65.102:8098", ApiService::class.java, isNeedAllLog = false)
+//            val apiService = HttpUtil.getApiService("http://47.96.65.102:809", ApiService::class.java)
 
 
             val body = RequestBody.create(MediaType.parse("application/json"), pack)
@@ -299,8 +304,9 @@ public class ApiDataFetchTest {
 //            "原始数据：${result}".wqLog()
                 "result：${result}".wqLog()
             } catch (e: Exception) {
+                "e before".wqLog()
                 e.printStackTrace()
-                "Exception".wqLog()
+                "e after".wqLog()
             }
         }
     }

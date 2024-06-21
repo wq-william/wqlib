@@ -19,6 +19,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -45,7 +46,8 @@ object HttpUtil {
         headMap: Map<String, String>? = null,
         dataProcessing: IDataProcessing? = null,
         interceptors: Array<Interceptor>? = null,
-        converterFactories: Array<Converter.Factory>? = null
+        converterFactories: Array<Converter.Factory>? = null,
+        isNeedAllLog: Boolean = false
     ): Retrofit {
         val okHttpClient = OkHttpClient.Builder()
             .run {
@@ -56,13 +58,12 @@ object HttpUtil {
                     addInterceptor(it)
                 }
                 addInterceptor(HeadersInterceptor(headMap))
-
 //                addInterceptor(HttpLoggingInterceptor().apply {
-//                    level = HttpLoggingInterceptor.Level.BODY
+//                    level = HttpLoggingInterceptor.Level.BASIC
 //                })
                 addInterceptor(HttpResponseInterceptor())
                 addInterceptor(DataProcessingInterceptor(dataProcessing))
-                addInterceptor(WqHttpLogInterceptor())
+                addInterceptor(WqHttpLogInterceptor(isNeedAllLog))
 
 //                addInterceptor(ExceptionInterceptor())
             }

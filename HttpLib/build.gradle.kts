@@ -8,7 +8,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "io.github.wq-william"
             artifactId = "httpLibrary"
-            version = "0.0.4"
+            version = "0.0.5"
             afterEvaluate {
                 from(components["release"])
             }

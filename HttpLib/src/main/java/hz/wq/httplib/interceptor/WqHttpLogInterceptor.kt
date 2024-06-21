@@ -7,16 +7,14 @@ import okhttp3.ResponseBody
 import okio.Buffer
 import java.io.IOException
 
-class WqHttpLogInterceptor : Interceptor {
-    private val isNeedAllLog = false//是否需要所有的数据
+class WqHttpLogInterceptor(private val isNeedAllLog: Boolean ) : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val originalResponse = chain.proceed(request)
-
         // 打印请求信息
         printRequestInfo(request)
+        val originalResponse = chain.proceed(request)
 
         // 缓存响应体以打印内容（注意：这可能会消耗响应体流，因此你需要决定是否这样做）
         val responseBodyString = originalResponse.body()?.string()
@@ -32,7 +30,7 @@ class WqHttpLogInterceptor : Interceptor {
     private fun printRequestInfo(request: okhttp3.Request) {
         "WqApi ----------------------------------------------------------------------------------------------------------------------------------------------------------------------".wqLog()
         "WqApi 请求 Url：${request.url()}".wqLog()
-        if(isNeedAllLog){
+        if (isNeedAllLog) {
             "WqApi 请求 Method：${request.method()}".wqLog()
             "WqApi 请求 Headers：${request.headers()}".wqLog()
         }
@@ -51,13 +49,13 @@ class WqHttpLogInterceptor : Interceptor {
                 e.printStackTrace()
             }
         }
-        if(isNeedAllLog){
+        if (isNeedAllLog) {
             "WqApi --- End of Request ---".wqLog()
         }
     }
 
     private fun printResponseInfo(response: Response, responseBodyString: String?) {
-        if(isNeedAllLog){
+        if (isNeedAllLog) {
             "WqApi response.code()：${response.code()}".wqLog()
             "WqApi response.headers()：${response.headers()}".wqLog()
         }

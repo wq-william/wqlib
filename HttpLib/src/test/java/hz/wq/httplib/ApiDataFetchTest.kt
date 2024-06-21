@@ -289,7 +289,7 @@ public class ApiDataFetchTest {
             val pack =
                 "gkDqoB%2BIMsGQO9soNi8sZZO5e2UttYj0xX37LVY%2BBDpXz97QgFQKOO9G8rb3%20IrWS1JQAYubA7zvIcRULuKpPc7VsfNzwThRcQC7PS0fv01Hq6Oipp%2F3o3tF2%20uApxrvyU3OkB5Dj2bulB9afctPwGjXqypC9CS7PHMv%2FCutcLu7lWTX243qWG%20WhAG5Tm8a0Px2uDKJc85dH4tpYSiqBWm18nN8SmcVxmB"
 
-            val apiService = HttpUtil.getApiService("http://47.96.65.102:8098", ApiService::class.java)
+            val apiService = HttpUtil.getApiService("http://47.96.65.102:809", ApiService::class.java)
 
 
             val body = RequestBody.create(MediaType.parse("application/json"), pack)

@@ -39,6 +39,9 @@ object HttpUtil {
      * @param dataProcessing    数据加工
      * @param interceptors  拦截器list  -  扩展更多使用方式
      * @param converterFactories   转换工厂list  -  扩展更多使用方式
+     * @param connectTimeout   连接超时 默认30
+     * @param readTimeout   读取超时  默认30
+     * @param writeTimeout   写超时  默认30
      * @return
      */
     private fun <T> getDefaultRetrofit(
@@ -47,13 +50,17 @@ object HttpUtil {
         dataProcessing: IDataProcessing? = null,
         interceptors: Array<Interceptor>? = null,
         converterFactories: Array<Converter.Factory>? = null,
-        isNeedAllLog: Boolean = false
-    ): Retrofit {
+        isNeedAllLog: Boolean = false,
+        connectTimeout: Long = 30,
+        readTimeout: Long = 30,
+        writeTimeout: Long = 30,
+
+        ): Retrofit {
         val okHttpClient = OkHttpClient.Builder()
             .run {
-                connectTimeout(30, TimeUnit.SECONDS)  // 连接超时
-                readTimeout(30, TimeUnit.SECONDS)     // 读取超时
-                writeTimeout(30, TimeUnit.SECONDS)    // 写入超时
+                connectTimeout(connectTimeout, TimeUnit.SECONDS)  // 连接超时
+                readTimeout(readTimeout, TimeUnit.SECONDS)     // 读取超时
+                writeTimeout(writeTimeout, TimeUnit.SECONDS)    // 写入超时
                 interceptors?.forEach {
                     addInterceptor(it)
                 }
@@ -79,7 +86,10 @@ object HttpUtil {
                 addConverterFactory(
                     CustomStringConverterFactory.create(
                         GsonBuilder()
-                            .registerTypeAdapter(String::class.java, ApiResponseStringDeserializer())
+                            .registerTypeAdapter(
+                                String::class.java,
+                                ApiResponseStringDeserializer()
+                            )
                             .create()
                     )
                 )
@@ -88,7 +98,10 @@ object HttpUtil {
                 addConverterFactory(
                     CustomGsonConverterFactory.create(
                         GsonBuilder()
-                            .registerTypeAdapter(ApiResponse::class.java, ApiResponseJsonDeserializer<T>())
+                            .registerTypeAdapter(
+                                ApiResponse::class.java,
+                                ApiResponseJsonDeserializer<T>()
+                            )
                             .create()
                     )
                 )
@@ -116,9 +129,23 @@ object HttpUtil {
         dataProcessing: IDataProcessing? = null,
         interceptors: Array<Interceptor>? = null,
         converterFactories: Array<Converter.Factory>? = null,
-        isNeedAllLog: Boolean = false
-    ): T {
-        return getDefaultRetrofit<T>(domain, headMap, dataProcessing, interceptors, converterFactories,isNeedAllLog).create(service)
+        isNeedAllLog: Boolean = false,
+        connectTimeout: Long = 30,
+        readTimeout: Long = 30,
+        writeTimeout: Long = 30,
+        ): T {
+        return getDefaultRetrofit<T>(
+            domain,
+            headMap,
+            dataProcessing,
+            interceptors,
+            converterFactories,
+            isNeedAllLog,
+            connectTimeout,
+            readTimeout,
+            writeTimeout,
+
+            ).create(service)
     }
 
     /**
@@ -141,8 +168,25 @@ object HttpUtil {
         dataProcessing: IDataProcessing? = null,
         interceptors: Array<Interceptor>? = null,
         converterFactories: Array<Converter.Factory>? = null,
-    ): ApiResponse<Result> {
-        val apiService = getApiService(domain, service, headMap, dataProcessing, interceptors, converterFactories)
+        isNeedAllLog: Boolean = false,
+        connectTimeout: Long = 30,
+        readTimeout: Long = 30,
+        writeTimeout: Long = 30,
+
+        ): ApiResponse<Result> {
+        val apiService = getApiService(
+            domain,
+            service,
+            headMap,
+            dataProcessing,
+            interceptors,
+            converterFactories,
+            isNeedAllLog,
+            connectTimeout,
+            readTimeout,
+            writeTimeout,
+
+            )
         val result = apiService.serviceFunction()
         return result
     }
@@ -168,9 +212,24 @@ object HttpUtil {
         dataProcessing: IDataProcessing? = null,
         interceptors: Array<Interceptor>? = null,
         converterFactories: Array<Converter.Factory>? = null,
+        isNeedAllLog: Boolean = false,
+        connectTimeout: Long = 30,
+        readTimeout: Long = 30,
+        writeTimeout: Long = 30,
     ): ApiResponse<Result> {
 
-        val apiService = getApiService(domain, service, headMap, dataProcessing, interceptors, converterFactories)
+        val apiService = getApiService(
+            domain,
+            service,
+            headMap,
+            dataProcessing,
+            interceptors,
+            converterFactories,
+            isNeedAllLog,
+            connectTimeout,
+            readTimeout,
+            writeTimeout,
+        )
         val result = apiService.serviceFunction(param)
         return result
     }

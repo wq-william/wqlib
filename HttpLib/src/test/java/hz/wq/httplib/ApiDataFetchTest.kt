@@ -112,7 +112,8 @@ public class ApiDataFetchTest {
     fun fetchData_Test_login() = runTest {
 
         launch {
-            val apiService = HttpUtil.getApiService(domain, ApiService::class.java, headMap, processingData)
+            val apiService =
+                HttpUtil.getApiService(domain, ApiService::class.java, headMap, processingData)
 
             val paramBean = LoginParamBean(
                 "18268020591", "12345678",
@@ -155,6 +156,7 @@ public class ApiDataFetchTest {
     @Test
     fun fetchData_Test_sendApi_login_java() {
         GlobalScope.launch {
+
             val paramBean = LoginParamBean(
                 "18268020591", "12345678",
                 imei = "A10000126F0C1B",
@@ -185,7 +187,12 @@ public class ApiDataFetchTest {
         val transformation = "AES/ECB/PKCS5Padding"
         override fun processingBeforeRequest(preSendKey: String?, preSendData: String): String {
             return if (isEncrypt) {
-                val b = EncryptUtils.encryptAES(preSendData.toByteArray(), key.toByteArray(), transformation, null)
+                val b = EncryptUtils.encryptAES(
+                    preSendData.toByteArray(),
+                    key.toByteArray(),
+                    transformation,
+                    null
+                )
                 Base64.encodeToString(b, Base64.DEFAULT)
             } else {
                 preSendData
@@ -195,7 +202,8 @@ public class ApiDataFetchTest {
         override fun processingAfterResponse(preResponseData: String): String {
             return if (isEncrypt) {
                 val encryptBytes: ByteArray = Base64.decode(preResponseData, Base64.DEFAULT)
-                val b = EncryptUtils.decryptAES(encryptBytes, key.toByteArray(), transformation, null)
+                val b =
+                    EncryptUtils.decryptAES(encryptBytes, key.toByteArray(), transformation, null)
                 String(b);
             } else {
                 preResponseData
@@ -223,7 +231,8 @@ public class ApiDataFetchTest {
         var s =
             "gJ6RP37QocZ40KAKbfAh5Rp9+ChgkUQzZ3AIBhCMk6CrtJwmgIEPay8/tinpVMqEoRyyrvrM2mZA93g+H9x5ON60Fn3Q7dPkgpFdJIvtO+f0+BRU3wQkqnDu8Yiv2x/2MG44bjMzZU0Fl7KIEfWR35GyhQD/J0b2wB8xYqbpboXIcbmrR6SYCb+CBeo+u/Mr"
         "解密后：${processingData.processingAfterResponse(s)}".wqLog()
-        s = "CjACj1TepnCuSPMm0H94Thp9+ChgkUQzZ3AIBhCMk6BqSNyQFy69TlyIL+s2CTHenW2Al5nnESYwkQ2zesAoq6JQsrFaUM7p04DX2wUZ839ApXqiDpPktHvBSEF+VQzVAaofUdYW8OBSHoi4j+LyISOTos9JFaq5f4DXD6o3dKg="
+        s =
+            "CjACj1TepnCuSPMm0H94Thp9+ChgkUQzZ3AIBhCMk6BqSNyQFy69TlyIL+s2CTHenW2Al5nnESYwkQ2zesAoq6JQsrFaUM7p04DX2wUZ839ApXqiDpPktHvBSEF+VQzVAaofUdYW8OBSHoi4j+LyISOTos9JFaq5f4DXD6o3dKg="
         "解密后11：${processingData.processingAfterResponse(s)}".wqLog()
         s =
             "gJ6RP37QocZ40KAKbfAh5Rp9+ChgkUQzZ3AIBhCMk6CrtJwmgIEPay8/tinpVMqEoRyyrvrM2mZA93g+H9x5OCHX0505tPRQVxKVrnCO/3y1mRT9V5Zpg/qEcTnJeulqMG44bjMzZU0Fl7KIEfWR35GyhQD/J0b2wB8xYqbpboXIcbmrR6SYCb+CBeo+u/Mr"
@@ -276,7 +285,8 @@ public class ApiDataFetchTest {
             val pack =
                 "gkDqoB%2BIMsGQO9soNi8sZZO5e2UttYj0xX37LVY%2BBDpXz97QgFQKOO9G8rb3%20IrWS1JQAYubA7zvIcRULuKpPc7VsfNzwThRcQC7PS0fv01Hq6Oipp%2F3o3tF2%20uApxrvyU3OkB5Dj2bulB9afctPwGjXqypC9CS7PHMv%2FCutcLu7lWTX243qWG%20WhAG5Tm8a0Px2uDKJc85dH4tpYSiqBWm18nN8SmcVxmB"
 
-            val apiService = HttpUtil.getApiService("http://xfdz-test.tpddns.cn:8082", ApiService::class.java)
+            val apiService =
+                HttpUtil.getApiService("http://xfdz-test.tpddns.cn:8082", ApiService::class.java)
             var result = apiService.deviceAuth(pack)
 //            var result = apiService.login(body)
 //            "原始数据：${result}".wqLog()
@@ -293,7 +303,14 @@ public class ApiDataFetchTest {
             val pack =
                 "gkDqoB%2BIMsGQO9soNi8sZZO5e2UttYj0xX37LVY%2BBDpXz97QgFQKOO9G8rb3%20IrWS1JQAYubA7zvIcRULuKpPc7VsfNzwThRcQC7PS0fv01Hq6Oipp%2F3o3tF2%20uApxrvyU3OkB5Dj2bulB9afctPwGjXqypC9CS7PHMv%2FCutcLu7lWTX243qWG%20WhAG5Tm8a0Px2uDKJc85dH4tpYSiqBWm18nN8SmcVxmB"
 
-            val apiService = HttpUtil.getApiService("http://47.96.65.102:8098", ApiService::class.java, isNeedAllLog = false)
+            val apiService = HttpUtil.getApiService(
+                domain = "http://47.96.65.102:8098",
+                service = ApiService::class.java,
+                isNeedAllLog = false,
+                connectTimeout = 10,
+                readTimeout = 10,
+                writeTimeout = 10,
+            )
 //            val apiService = HttpUtil.getApiService("http://47.96.65.102:809", ApiService::class.java)
 
 

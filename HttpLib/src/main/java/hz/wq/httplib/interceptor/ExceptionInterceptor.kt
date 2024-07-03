@@ -1,9 +1,9 @@
 package hz.wq.httplib.interceptor
 
 import com.google.gson.Gson
+import hz.wq.common.log.LogUtils.wqLog
 import hz.wq.httplib.bean.ApiResponse
 import hz.wq.httplib.bean.HttpResponse
-import hz.wq.httplib.utils.wqLog
 import okhttp3.Interceptor
 import okhttp3.MediaType
 import okhttp3.Protocol

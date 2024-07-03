@@ -1,6 +1,6 @@
 package hz.wq.httplib.interceptor
 
-import hz.wq.httplib.utils.wqLog
+import hz.wq.common.log.LogUtils.wqLog
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody

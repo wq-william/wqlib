@@ -2,11 +2,12 @@ package hz.wq.httplib
 
 import com.blankj.utilcode.util.EncryptUtils
 import com.google.gson.Gson
+import hz.wq.common.log.LogUtils
+import hz.wq.common.log.LogUtils.wqLog
 import hz.wq.httplib.bean.ApiResponse
 import hz.wq.httplib.interfaces.IDataProcessing
 import hz.wq.httplib.utils.Base64
 import hz.wq.httplib.utils.HttpUtil
-import hz.wq.httplib.utils.wqLog
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -74,6 +75,10 @@ data class LoginResultBean(
 )
 
 public class ApiDataFetchTest {
+
+    init {
+        LogUtils.isAndroidLog = false
+    }
     @Test
     fun fetchData_Test_FormUrlEncoded() = runTest {
         launch {
@@ -246,17 +251,10 @@ public class ApiDataFetchTest {
     fun fetchData_Test_sendApi_login陈豪() = runTest {
 
         launch {
-//            val paramBean = LoginParamBean(
-//                "17572696697", "123456",
-//                imei = "354738106513820",
-//                devid = "F6800240611",
-//                appVersion = "0.0.1",
-//            )
             val paramBean = LoginParamBean(
                 "17572696697", "123456",
                 imei = "354738106513820",
                 devid = "F38C7100486",
-//                devid = "F6800240611",
                 appVersion = "0.0.1",
             )
             val json = Gson().toJson(paramBean)

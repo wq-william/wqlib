@@ -3,7 +3,6 @@ package hz.wq.httplib.convert
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
 import com.google.gson.reflect.TypeToken
-import hz.wq.httplib.utils.wqLog
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Retrofit

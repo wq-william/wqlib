@@ -1,7 +1,7 @@
 package hz.wq.httplib.interceptor
 
+import hz.wq.common.log.LogUtils.wqLog
 import hz.wq.httplib.interfaces.IDataProcessing
-import hz.wq.httplib.utils.wqLog
 import okhttp3.FormBody
 import okhttp3.Interceptor
 import okhttp3.MediaType

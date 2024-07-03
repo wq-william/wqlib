@@ -6,9 +6,9 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
+import hz.wq.common.log.LogUtils.wqLog
 import hz.wq.httplib.bean.ApiResponse
 import hz.wq.httplib.bean.HttpResponse
-import hz.wq.httplib.utils.wqLog
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 

@@ -4,7 +4,7 @@ plugins {
     `maven-publish`
 }
 
-version = "0.0.8"
+version = "0.1.0"
 
 android {
     namespace = "hz.wq.httplib"
@@ -70,5 +70,5 @@ dependencies {
 }
 
 extra.set("libVersion", version)
-extra.set("libArtifactId", "httpLibrary")
+extra.set("libArtifactId", "httpLib")
 apply("../publishing.gradle.kts")

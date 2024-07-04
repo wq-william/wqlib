@@ -1,13 +1,9 @@
 package hz.wq.lib
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,7 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import hz.wq.lib.theme.TestGradle85Theme
 import hz.wq.common.TestCommon
 import hz.wq.common.log.LogUtils.wqLog
-import hz.wq.httplib.utils.HttpUtil
+import hz.wq.lib.testCompose.bottomTab.BottomTabScreen
+import hz.wq.lib.testCompose.bottomTab.testTab
 import hz.wq.lib.testHttp.HttpTest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,16 +31,39 @@ class MainActivity : ComponentActivity() {
             HttpTest.fetchData_Test_sendApi_login陈豪()
         }
         setContent {
-            TestGradle85Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android gradle8.7 app8.5",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            MyComposeApp()
+//            TestGradle85Theme {
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    Greeting(
+//                        name = "Android gradle8.7 app8.5",
+//                        modifier = Modifier.padding(innerPadding)
+//                    )
+//                }
+//            }
         }
     }
+}
+
+@Composable
+fun MyComposeApp() {
+    TestGradle85Theme {
+        val items = listOf(
+            testTab("test1"),
+            testTab("test2"),
+            testTab("test3"),
+            testTab("test4"),
+        )
+        BottomTabScreen(items)
+    }
+//    MaterialTheme {
+//        MainScreen()
+//    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MyComposeAppPreview() {
+    MyComposeApp()
 }
 
 @Composable
@@ -54,10 +74,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TestGradle85Theme {
-        Greeting("Android")
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//    TestGradle85Theme {
+//        Greeting("Android")
+//    }
+//}

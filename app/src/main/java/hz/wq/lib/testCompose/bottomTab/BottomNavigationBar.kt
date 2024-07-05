@@ -34,16 +34,12 @@ fun BottomNavigationBar(
         tabs.forEach { tab ->
             val selected = currentDestination?.hierarchy?.any { it.route == tab.route } == true
             NavigationBarItem(
+                colors = tab.navigationBarItemIndicatorColor?.let { indicatorColor ->
+                    NavigationBarItemDefaults.colors(
+                        indicatorColor = indicatorColor,
+                    )
+                } ?: NavigationBarItemDefaults.colors(),
                 modifier = Modifier.background(if (selected) tab.bgColor else Color.Transparent),
-//                modifier = Modifier.background(
-//                    color = if (selected) tab.bgColor else Color.Transparent,
-//                    shape = if (selected) RoundedCornerShape(8.dp) else RoundedCornerShape(0.dp)
-//                ),
-                // 确保背景完全透明
-//                modifier = Modifier.background(
-//                    color = if (selected) tab.bgColor else Color.Transparent,
-//                    shape = RoundedCornerShape(0.dp) // 平直的背景，无圆角
-//                ),
                 icon = {
                     val modifier = Modifier.apply {
                         tab.iconWidth?.let {
@@ -53,6 +49,7 @@ fun BottomNavigationBar(
                             height(it)
                         }
                     }
+//                    Text(tab.route, modifier = modifier)
                     Icon(
                         modifier = modifier,
                         imageVector = if (selected) tab.selectedIcon else tab.icon,
@@ -65,7 +62,13 @@ fun BottomNavigationBar(
                     )
                 },
                 label = {
-                    if (tab.isNeedText) Text(tab.route, fontSize = tab.fontSize, color = tab.fontColor)
+
+                    if (tab.isNeedText)
+                        Text(
+                            tab.route,
+                            fontSize = if (selected) tab.fontSelectSize else tab.fontSize,
+                            color = if (selected) tab.fontSelectColor else tab.fontColor
+                        )
                 },
                 selected = selected,
                 onClick = {

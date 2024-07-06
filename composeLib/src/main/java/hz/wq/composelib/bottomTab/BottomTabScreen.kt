@@ -1,4 +1,4 @@
-package hz.wq.lib.testCompose.bottomTab
+package hz.wq.composelib.bottomTab
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun BottomTabScreen(tabs:List<TabScreen>,startIndex:Int = 0) {
+fun BottomTabScreen(tabs:List<TabScreen>, startIndex:Int = 0) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomNavigationBar(navController,tabs,60.dp) }

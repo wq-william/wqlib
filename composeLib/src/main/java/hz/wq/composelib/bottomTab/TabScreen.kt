@@ -1,4 +1,4 @@
-package hz.wq.lib.testCompose.bottomTab
+package hz.wq.composelib.bottomTab
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,8 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 /**
  * 创建者: W~Q
@@ -41,10 +39,10 @@ class TabScreen(
 fun testTab(tabName: String = "Test"): TabScreen {
     return TabScreen(
         route = tabName,
+        contentScreen = { TestScreen(tabName) },
+        icon = Icons.Filled.Star,
+        selectedIcon = Icons.Filled.Star,
 
-//        icon = Icons.Filled.Star,
-//        selectedIcon = Icons.Filled.Star,
-//        contentScreen = { TestScreen(tabName) },
 //
 //        iconWidth = 10.dp,
 //        iconHeight = 10.dp,
@@ -63,6 +61,7 @@ fun testTab(tabName: String = "Test"): TabScreen {
 
 @Composable
 fun TestScreen(name: String = "Test") {
+//    Text(text = "$name Screen")
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(text = "$name Screen")
     }

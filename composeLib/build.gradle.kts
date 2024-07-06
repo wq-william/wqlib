@@ -3,10 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
-version = "0.1"
-
 android {
-    namespace = "hz.wq.wholelib"
+    namespace = "hz.wq.composelib"
     compileSdk = 34
 
     defaultConfig {
@@ -22,9 +20,16 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    buildFeatures {
+        compose = true
+    }
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = "1.5.1"
+//    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -32,22 +37,15 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
 
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
-
-    api(project(":httpLib"))
-    api(project(":common"))
-    api(project(":composeLib"))
+    implementation("androidx.navigation:navigation-compose:2.7.5")
+    implementation("androidx.compose.runtime:runtime:1.5.1")
 }
-
-extra.set("libVersion", version)
-extra.set("libArtifactId", "wholeLib")
-apply("../publishing.gradle.kts")

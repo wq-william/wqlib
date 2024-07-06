@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun BottomTabScreen(tabs:List<TabScreen>, startIndex:Int = 0) {
+fun BottomTabScreen(tabs:List<BottomTab>, startIndex:Int = 0) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomNavigationBar(navController,tabs,60.dp) }

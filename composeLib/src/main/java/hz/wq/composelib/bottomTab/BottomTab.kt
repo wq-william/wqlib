@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.TextUnit
 /**
  * 创建者: W~Q
  */
-class TabScreen(
+class BottomTab(
     var route: String,
 
     var icon: ImageVector = Icons.Filled.Star,
@@ -36,10 +36,13 @@ class TabScreen(
     var navigationBarItemIndicatorColor: Color? = null //这里是设置选中后的ICON的背景颜色,透明则取消指示器
 )
 
-fun testTab(tabName: String = "Test"): TabScreen {
-    return TabScreen(
+fun testBottomTab(
+    tabName: String = "Test",
+    contentScreen: @Composable () -> Unit = { TestScreen(tabName) }
+): BottomTab {
+    return BottomTab(
         route = tabName,
-        contentScreen = { TestScreen(tabName) },
+        contentScreen = contentScreen,
         icon = Icons.Filled.Star,
         selectedIcon = Icons.Filled.Star,
 

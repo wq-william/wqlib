@@ -23,7 +23,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 @Composable
 fun BottomNavigationBar(
     navController: NavHostController,
-    tabs: List<TabScreen>,
+    tabs: List<BottomTab>,
     tabHeight: Dp = 80.dp,
     tabBg: Color = NavigationBarDefaults.containerColor,
 ) {

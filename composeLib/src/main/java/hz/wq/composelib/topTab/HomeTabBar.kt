@@ -1,5 +1,7 @@
 package hz.wq.composelib.topTab
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -51,11 +53,25 @@ fun TabPage() {
 //        colors = listOf(Color(0xFF0F9D58), Color(0xFF4285F4))
 //    )
 
-    var bgColor = if (selectedTabIndex == 0) Color.Blue else if (selectedTabIndex == 1) Color.Yellow else Color.White
+    val resultColor = if (selectedTabIndex == 0) Color.Blue else if (selectedTabIndex == 1) Color.Yellow else Color.White
+    val bgColor by animateColorAsState(
+        targetValue = resultColor,
+        label = "bgAnimateColor",
+//        animationSpec = tween(durationMillis = 300)
+    )
+
+//    val bgColor by animateColorAsState(
+//        targetValue = resultColor,
+//        animationSpec = tween(durationMillis = 300) ,// 设置动画持续时间为1000毫秒
+//        label = "bgAnimateColor"
+//    )
+
     Column() {
         TabRow(
             selectedTabIndex = selectedTabIndex,
             modifier = Modifier.background(Color.White),
+            indicator = {} ,// 取消指示器
+            divider = {} // 取消分割线
 //            indicator = { tabPositions ->
 //                TabRowDefaults.Indicator(
 //                    Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex])

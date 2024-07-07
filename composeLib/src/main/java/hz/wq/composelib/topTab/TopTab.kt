@@ -1,4 +1,4 @@
-package hz.wq.composelib.bottomTab
+package hz.wq.composelib.topTab
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,12 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
+import hz.wq.composelib.bottomTab.BottomTab
 
 /**
  * 创建者: W~Q
  */
-class BottomTab(
-    var route: String,
+class TopTab(
+    var name: String,
 
     var icon: ImageVector = Icons.Filled.Star,
     var selectedIcon: ImageVector = Icons.Filled.Star,
@@ -32,21 +33,22 @@ class BottomTab(
     var fontSelectSize: TextUnit = TextUnit.Unspecified,
     var fontColor: Color = Color.Unspecified,
     var fontSelectColor: Color = Color.Unspecified,
-    var bgColor: Color = Color.Unspecified,
-    var navigationBarItemIndicatorColor: Color? = null //这里是设置选中后的ICON的背景颜色,透明则取消指示器
+    var contentBgColor: Color = Color.Unspecified,
+    var tabBgColor: Color = Color.Unspecified
 )
 
-fun testBottomTab(
+fun testTopTab(
     tabName: String = "Test",
-    contentScreen: @Composable () -> Unit = { TestBottomContent(tabName) }
-): BottomTab {
-    return BottomTab(
-        route = tabName,
+    contentBgColor: Color = Color.Unspecified,
+    tabBgColor: Color = Color.Unspecified,
+    contentScreen: @Composable () -> Unit = { TestTopContent(tabName) }
+): TopTab {
+    return TopTab(
+        name = tabName,
         contentScreen = contentScreen,
         icon = Icons.Filled.Star,
         selectedIcon = Icons.Filled.Star,
 
-//
 //        iconWidth = 10.dp,
 //        iconHeight = 10.dp,
 //        iconSelectedColor = Color.Green,
@@ -56,16 +58,17 @@ fun testBottomTab(
 //        fontSelectSize = 16.sp,
 //        fontColor = Color.DarkGray,
 //        fontSelectColor = Color.Red,
-//        bgColor = Color.Yellow,
+        contentBgColor = contentBgColor,
+        tabBgColor = tabBgColor,
 //
 //        navigationBarItemIndicatorColor = Color.Transparent
     )
 }
 
 @Composable
-private fun TestBottomContent(name: String = "Test") {
+private fun TestTopContent(name: String = "Test") {
 //    Text(text = "$name Screen")
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "TestBottomContent $name")
+        Text(text = "TestTopContent $name")
     }
 }

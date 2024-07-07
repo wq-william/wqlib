@@ -46,11 +46,11 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun MyComposeAppPreview() {
-    TestBottomTab()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun MyComposeAppPreview() {
+//    TestBottomTab()
+//}
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {

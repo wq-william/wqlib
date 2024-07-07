@@ -12,6 +12,8 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -19,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import hz.wq.common.log.LogUtils.wqLog
 
 @Composable
 fun BottomNavigationBar(
@@ -31,11 +34,16 @@ fun BottomNavigationBar(
         containerColor = tabBg, // 背景颜色
         modifier = Modifier.height(tabHeight) // 设置导航栏高度
     ) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-//
-        val currentDestination = navBackStackEntry?.destination
+
+        var selectRoute = remember {
+            mutableStateOf(tabs[0].route)
+        }
+//        val navBackStackEntry by navController.currentBackStackEntryAsState()
+//        val currentDestination = navBackStackEntry?.destination
         tabs.forEach { tab ->
-            val selected = currentDestination?.hierarchy?.any { it.route == tab.route } == true
+//            val selected = currentDestination?.hierarchy?.any { it.route == tab.route } == true
+            val selected: Boolean = selectRoute.value == tab.route
+
             NavigationBarItem(
                 colors = tab.navigationBarItemIndicatorColor?.let { indicatorColor ->
                     NavigationBarItemDefaults.colors(
@@ -52,7 +60,6 @@ fun BottomNavigationBar(
                             height(it)
                         }
                     }
-//                    Text(tab.route, modifier = modifier)
                     Icon(
                         modifier = modifier,
                         imageVector = if (selected) tab.selectedIcon else tab.icon,
@@ -83,6 +90,7 @@ fun BottomNavigationBar(
                         }
                         launchSingleTop = true
                         restoreState = true
+                        selectRoute.value = tab.route
                     }
 
                 }

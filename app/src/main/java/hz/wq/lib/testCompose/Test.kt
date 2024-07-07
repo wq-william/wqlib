@@ -62,7 +62,6 @@ fun TestBottomTab() {
             testBottomTab(tabName = "testB3"),
             testBottomTab(tabName = "testB4"),
         )
-        "items size:${bottomTabs.size}".wqLog()
         BottomTabScreen(bottomTabs)
     }
 //    MaterialTheme {

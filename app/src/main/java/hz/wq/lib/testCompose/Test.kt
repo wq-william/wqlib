@@ -43,13 +43,14 @@ fun TestBottomTab() {
                         Text(text = "Content for Tab testT1")
                     }
                 },
-                fontColor = Color.Black, fontSelectColor = Color.White,
-                fontSize = 14.sp, fontSelectSize = 17.sp,
+                fontColor = Color.DarkGray, fontSelectColor = Color.White,
+                fontSize = 12.sp, fontSelectSize = 13.sp,
                 tabBgColor = if (index == 0) Color.Blue else Color.Unspecified
             ),
             testTopTab(tabName = "testT2", contentBgColor = if (index == 1) Color.Green else Color.Unspecified, tabBgColor = if (index == 1) Color.Green else Color.Unspecified),
-            testTopTab(tabName = "testT3", contentBgColor = if (index == 2) Color.Yellow else Color.Unspecified, tabBgColor = if (index == 2) Color.Yellow else Color.Unspecified),
-            testTopTab(tabName = "testT4", contentBgColor = if (index == 3) Color.DarkGray else Color.Unspecified, tabBgColor = if (index == 3) Color.Gray else Color.Unspecified),
+            testTopTab(tabName = "testT3", contentBgColor = if (index == 2) Color.DarkGray else Color.Unspecified, tabBgColor = if (index == 2) Color.DarkGray else Color.Unspecified),
+            testTopTab(tabName = "testT4", contentBgColor = if (index == 3) Color.DarkGray else Color.Unspecified, tabBgColor = if (index == 3) Color.DarkGray else Color.Unspecified),
+            testTopTab(tabName = "testT5", contentBgColor = if (index == 4) Color.DarkGray else Color.Unspecified, tabBgColor = if (index == 4) Color.DarkGray else Color.Unspecified),
         )
 
         val bottomTabs = listOf(

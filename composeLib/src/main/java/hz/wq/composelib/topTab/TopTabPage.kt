@@ -50,7 +50,7 @@ fun TabPage(tabs: List<TopTab>, selectedTabIndexState: MutableState<Int>) {
                         .clip(RoundedCornerShape(12.dp, 12.dp, 0.dp, 0.dp)) // 设置圆角
                         .background(tab.tabBgColor)
 //                        .background(if (selectedTabIndexState.value == index) tab.bgColor else Color.Unspecified)
-                        .padding(vertical = 8.dp, horizontal = 16.dp)
+                        .padding(vertical = 5.dp, horizontal = 2.dp)
                 ) {
 
                     if (tab.isNeedText)

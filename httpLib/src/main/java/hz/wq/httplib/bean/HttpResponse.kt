@@ -13,4 +13,8 @@ class HttpResponse(
     val httpMessage: String? = null,//http 的msg
     val httpHeaders: Map<String, List<String>>? = null, //http头信息
     val httpRawContent: String? = null  //保存解析前的完整内容
-)
+) {
+    fun getResponseString(): String {
+        return "HttpResponse(httpStatusCode=$httpStatusCode, httpMessage=$httpMessage, httpHeaders=$httpHeaders)"
+    }
+}

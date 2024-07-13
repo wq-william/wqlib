@@ -1,23 +1,8 @@
 package hz.wq.httplib;
 
-import com.blankj.utilcode.util.EncryptUtils;
-import com.google.gson.Gson;
-
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import hz.wq.httplib.bean.ApiResponse;
-import hz.wq.httplib.interfaces.IDataProcessing;
-import hz.wq.httplib.utils.HttpUtil;
-import kotlin.coroutines.Continuation;
-import kotlin.coroutines.CoroutineContext;
-import kotlin.jvm.functions.Function2;
-import kotlinx.coroutines.CoroutineScope;
-import kotlinx.coroutines.GlobalScope;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
+import hz.wq.httplib.jq.ApiDataFetchTest;
 
 public class ApiTestJava {
     @Test

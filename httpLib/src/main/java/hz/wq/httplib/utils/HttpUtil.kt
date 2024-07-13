@@ -22,6 +22,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -66,7 +67,7 @@ object HttpUtil {
                 }
                 addInterceptor(HeadersInterceptor(headMap))
 //                addInterceptor(HttpLoggingInterceptor().apply {
-//                    level = HttpLoggingInterceptor.Level.BASIC
+//                    level = HttpLoggingInterceptor.Level.BODY
 //                })
                 addInterceptor(HttpResponseInterceptor())
                 addInterceptor(DataProcessingInterceptor(dataProcessing))
@@ -93,7 +94,7 @@ object HttpUtil {
                             .create()
                     )
                 )
-//                addConverterFactory(ScalarsConverterFactory.create())
+
                 //单独处理JSON
                 addConverterFactory(
                     CustomGsonConverterFactory.create(
@@ -105,6 +106,8 @@ object HttpUtil {
                             .create()
                     )
                 )
+                addConverterFactory(ScalarsConverterFactory.create())
+                addConverterFactory(GsonConverterFactory.create())
             }
             .client(okHttpClient)
             .build()
@@ -133,7 +136,7 @@ object HttpUtil {
         connectTimeout: Long = 30,
         readTimeout: Long = 30,
         writeTimeout: Long = 30,
-        ): T {
+    ): T {
         return getDefaultRetrofit<T>(
             domain,
             headMap,

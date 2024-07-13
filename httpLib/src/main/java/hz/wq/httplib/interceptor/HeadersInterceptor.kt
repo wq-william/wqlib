@@ -13,16 +13,16 @@ class HeadersInterceptor(private val headMap: Map<String, String>?) : Intercepto
 
         // 创建新的请求构建器，并添加自定义的头部参数
         val requestBuilder: Request.Builder = original.newBuilder().apply {
+//            header("isEncrypt", "false")
             headMap?.forEach { (key, value) ->
-//                header("isEncrypt", "false")
-                header(key, value)
+//                header(key, value)
+                addHeader(key, value)
                 "添加头信息$key：$value".wqLog()
             }
         }
 
         // 构建新的请求
         val request: Request = requestBuilder.build()
-
         // 继续执行请求
         return chain.proceed(request)
     }

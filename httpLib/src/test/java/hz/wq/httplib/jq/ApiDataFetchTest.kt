@@ -1,4 +1,4 @@
-package hz.wq.httplib
+package hz.wq.httplib.jq
 
 import com.blankj.utilcode.util.EncryptUtils
 import com.google.gson.Gson

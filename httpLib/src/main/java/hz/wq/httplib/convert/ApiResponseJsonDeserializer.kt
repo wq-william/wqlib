@@ -70,7 +70,7 @@ class ApiResponseJsonDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
 
                 val data: T? = when {
                     dataElement?.isJsonNull == true -> null
-                    actualTypeArgument == String::class.java -> dataElement.toString() as T
+                    actualTypeArgument == String::class.java -> dataElement?.asString as T
                     else -> {
                         try {
                             context.deserialize<T>(dataElement, typeOfT.actualTypeArguments[0])

@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-//    `maven-publish`
+    `maven-publish`
 }
-version = "0.0.4"
+version = "0.1"
 
 android {
     namespace = "hz.wq.common"

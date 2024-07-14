@@ -1,6 +1,6 @@
 package hz.wq.httplib.wqweb.bean.param
 
-data class UpdatePassword(
+data class UpdatePasswordBean(
     val oldPassword: String,
     val newPassword: String,
     val newRePassword: String,

@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
-version = "0.1"
+version = "0.2"
 
 android {
     namespace = "hz.wq.wholelib"

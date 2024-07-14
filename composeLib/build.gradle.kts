@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    `maven-publish`
 }
-
+version = "0.1.4"
 android {
     namespace = "hz.wq.composelib"
     compileSdk = 34
@@ -47,16 +48,21 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(project(":common"))
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+//    testImplementation(libs.junit)
+//    androidTestImplementation(libs.androidx.junit)
+//    androidTestImplementation(libs.androidx.espresso.core)
+//    androidTestImplementation(platform(libs.androidx.compose.bom))
+//    androidTestImplementation(libs.androidx.ui.test.junit4)
+//    debugImplementation(libs.androidx.ui.tooling)
+//    debugImplementation(libs.androidx.ui.test.manifest)
 
 
 
-    implementation("androidx.navigation:navigation-compose:2.7.5")
-    implementation("androidx.compose.runtime:runtime:1.5.1")
+    api("androidx.navigation:navigation-compose:2.7.5")
+    api("androidx.compose.runtime:runtime:1.5.1")
 }
+
+
+extra.set("libVersion", version)
+extra.set("libArtifactId", "composeLib")
+apply("../publishing.gradle.kts")

@@ -11,8 +11,8 @@ object BitwiseUtil {
      * end 结束下标 （包含end）
      */
     fun setBitsInRange(value: Int, start: Int, end: Int, newBits: Int): Int {
-        val start = start
-        val end = end
+//        val start = start
+//        val end = end
 
         // 创建一个掩码，其中指定范围内的位设置为 1
         var mask = (1 shl (end - start + 1)) - 1
@@ -28,8 +28,8 @@ object BitwiseUtil {
      * end 结束下标 （包含end），如不传，自动获取单个字节
      */
     fun getBitsInRange(value: Int, start: Int, end: Int = start): Int {
-        val start = start
-        val end = end
+//        val start = start
+//        val end = end
 
         // 创建一个掩码，其中指定范围内的位设置为 1
         var mask = (1 shl (end - start + 1)) - 1
@@ -45,8 +45,8 @@ object BitwiseUtil {
      * end 结束下标 （包含end）
      */
     fun clearBitsInRange(value: Int, start: Int, end: Int): Int {
-        val start = start
-        val end = end
+//        val start = start
+//        val end = end
 
         // 创建一个掩码，其中指定范围内的位设置为 1
         var mask = (1 shl (end - start + 1)) - 1

@@ -7,8 +7,10 @@ import hz.wq.common.log.LogUtils.wqLog
 import hz.wq.httplib.bean.ApiResponse
 import hz.wq.httplib.interfaces.IDataProcessing
 import hz.wq.httplib.utils.Base64
-import hz.wq.httplib.utils.HttpUtil
+import hz.wq.httplib.helper.HttpHelper
+import hz.wq.httplib.helper.HttpLogCollector
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
@@ -78,11 +80,23 @@ public class ApiDataFetchTest {
 
     init {
         LogUtils.isAndroidLog = false
+
+        GlobalScope.launch {
+            HttpLogCollector.logRequestFlow.collect{
+                it.getLogString(", ").wqLog()
+            }
+        }
+        GlobalScope.launch {
+            HttpLogCollector.logResponseFlow.collect{
+                it.getLogString(", ").wqLog()
+            }
+        }
+
     }
     @Test
     fun fetchData_Test_FormUrlEncoded() = runTest {
         launch {
-            val apiService = HttpUtil.getApiService(domain, ApiService::class.java)
+            val apiService = HttpHelper.getApiService(domain, ApiService::class.java)
             val map = mapOf(
                 "envCode" to "2",//（0=正式环境；1=测试环境内网；2=测试环境外网
                 "deviceType" to "400000"
@@ -96,7 +110,7 @@ public class ApiDataFetchTest {
     fun fetchData_Test_Body() = runTest {
 
         launch {
-            val apiService = HttpUtil.getApiService(domain, ApiService::class.java)
+            val apiService = HttpHelper.getApiService(domain, ApiService::class.java)
             val map = mapOf(
                 "envCode" to "2",//（0=正式环境；1=测试环境内网；2=测试环境外网
                 "deviceType" to "400000"
@@ -118,7 +132,7 @@ public class ApiDataFetchTest {
 
         launch {
             val apiService =
-                HttpUtil.getApiService(domain, ApiService::class.java, headMap, processingData)
+                HttpHelper.getApiService(domain, ApiService::class.java, headMap, processingData)
 
             val paramBean = LoginParamBean(
                 "18268020591", "12345678",
@@ -146,7 +160,7 @@ public class ApiDataFetchTest {
             )
             val json = Gson().toJson(paramBean)
             val body = RequestBody.create(MediaType.parse("application/json"), json)
-            var result = HttpUtil.sendApi(
+            var result = HttpHelper.sendApi(
                 domain,
                 ApiService::class.java,
                 ApiService::login,
@@ -170,7 +184,7 @@ public class ApiDataFetchTest {
             )
             val json = Gson().toJson(paramBean)
             val body = RequestBody.create(MediaType.parse("application/json"), json)
-            var result = HttpUtil.sendApi(
+            var result = HttpHelper.sendApi(
                 domain,
                 ApiService::class.java,
                 ApiService::login,
@@ -260,7 +274,7 @@ public class ApiDataFetchTest {
             val json = Gson().toJson(paramBean)
 
             val body = RequestBody.create(MediaType.parse("application/json"), json)
-            var result = HttpUtil.sendApi(
+            var result = HttpHelper.sendApi(
                 domain = domain,
                 service = ApiService::class.java,
                 serviceFunction = ApiService::login,
@@ -284,7 +298,7 @@ public class ApiDataFetchTest {
                 "gkDqoB%2BIMsGQO9soNi8sZZO5e2UttYj0xX37LVY%2BBDpXz97QgFQKOO9G8rb3%20IrWS1JQAYubA7zvIcRULuKpPc7VsfNzwThRcQC7PS0fv01Hq6Oipp%2F3o3tF2%20uApxrvyU3OkB5Dj2bulB9afctPwGjXqypC9CS7PHMv%2FCutcLu7lWTX243qWG%20WhAG5Tm8a0Px2uDKJc85dH4tpYSiqBWm18nN8SmcVxmB"
 
             val apiService =
-                HttpUtil.getApiService("http://xfdz-test.tpddns.cn:8082", ApiService::class.java)
+                HttpHelper.getApiService("http://xfdz-test.tpddns.cn:8082", ApiService::class.java)
             var result = apiService.deviceAuth(pack)
 //            var result = apiService.login(body)
 //            "原始数据：${result}".wqLog()
@@ -301,7 +315,7 @@ public class ApiDataFetchTest {
             val pack =
                 "gkDqoB%2BIMsGQO9soNi8sZZO5e2UttYj0xX37LVY%2BBDpXz97QgFQKOO9G8rb3%20IrWS1JQAYubA7zvIcRULuKpPc7VsfNzwThRcQC7PS0fv01Hq6Oipp%2F3o3tF2%20uApxrvyU3OkB5Dj2bulB9afctPwGjXqypC9CS7PHMv%2FCutcLu7lWTX243qWG%20WhAG5Tm8a0Px2uDKJc85dH4tpYSiqBWm18nN8SmcVxmB"
 
-            val apiService = HttpUtil.getApiService(
+            val apiService = HttpHelper.getApiService(
                 domain = "http://47.96.65.102:8098",
                 service = ApiService::class.java,
                 isNeedAllLog = false,

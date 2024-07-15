@@ -1,4 +1,4 @@
-package hz.wq.httplib.utils
+package hz.wq.httplib.helper
 
 import com.google.gson.GsonBuilder
 import hz.wq.httplib.bean.ApiResponse
@@ -10,16 +10,10 @@ import hz.wq.httplib.convert.NullOnEmptyConverterFactory
 import hz.wq.httplib.interceptor.WqHttpLogInterceptor
 import hz.wq.httplib.interceptor.HttpResponseInterceptor
 import hz.wq.httplib.interceptor.DataProcessingInterceptor
-import hz.wq.httplib.interceptor.ExceptionInterceptor
 import hz.wq.httplib.interceptor.HeadersInterceptor
-import hz.wq.httplib.interfaces.ApiResponseCallback
 import hz.wq.httplib.interfaces.IDataProcessing
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,7 +23,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Http util
  */
-object HttpUtil {
+object HttpHelper {
 
     /**
      * 获取 Retrofit 对象

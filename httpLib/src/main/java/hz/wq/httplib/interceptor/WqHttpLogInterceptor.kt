@@ -1,6 +1,12 @@
 package hz.wq.httplib.interceptor
 
 import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.httplib.bean.LogRequestBean
+import hz.wq.httplib.bean.LogResponseBean
+import hz.wq.httplib.helper.HttpLogCollector
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
@@ -26,7 +32,7 @@ class WqHttpLogInterceptor(private val isNeedAllLog: Boolean) : Interceptor {
         // 缓存响应体以打印内容（注意：这可能会消耗响应体流，因此你需要决定是否这样做）
         val responseBodyString = originalResponse.body()?.string()
         // 打印响应信息
-        printResponseInfo(originalResponse, responseBodyString)
+        printResponseInfo(request, originalResponse, responseBodyString)
 
         val newBody = responseBodyString?.let { ResponseBody.create(originalResponse.body()!!.contentType(), it) }
         // 返回新的响应（如果修改了响应体）
@@ -40,27 +46,45 @@ class WqHttpLogInterceptor(private val isNeedAllLog: Boolean) : Interceptor {
             "WqApi 请求 Method：${request.method()}".wqLog()
             "WqApi 请求 Headers：${request.headers()}".wqLog()
         }
+        val params = mutableMapOf<String, String?>()
         request.url().queryParameterNames()?.forEach { paramName ->
             "WqApi 请求参数 Parameter：${paramName}:${request.url().queryParameter(paramName)}".wqLog()
+            params[paramName] = request.url().queryParameter(paramName)
         }
 
+        var bodyString: String? = null
         // 尝试打印请求体
         request.body()?.let { body ->
             try {
                 val buffer = Buffer()
                 body.writeTo(buffer)
 
-                "WqApi 请求参数 body：${buffer.readUtf8()}".wqLog()
+                bodyString = buffer.readUtf8()
+                "WqApi 请求参数 body：${bodyString}".wqLog()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+        //RequestLog收集
+//        runBlocking{
+        GlobalScope.launch {
+            HttpLogCollector.request(
+                LogRequestBean(
+                    url = request.url().toString(),
+                    method = request.method(),
+                    heads = request.headers().toMultimap(),
+                    params = params,
+                    body = bodyString,
+                )
+            )
+        }
+
         if (isNeedAllLog) {
             "WqApi --- End of Request ---".wqLog()
         }
     }
 
-    private fun printResponseInfo(response: Response, responseBodyString: String?) {
+    private fun printResponseInfo(request: okhttp3.Request, response: Response, responseBodyString: String?) {
         if (isNeedAllLog) {
             "WqApi response.code()：${response.code()}".wqLog()
             "WqApi response.headers()：${response.headers()}".wqLog()
@@ -76,6 +100,19 @@ class WqHttpLogInterceptor(private val isNeedAllLog: Boolean) : Interceptor {
 
         responseBodyString?.let {
             "WqApi response body: $it".wqLog()
+        }
+        //RequestLog收集
+//        runBlocking{
+        GlobalScope.launch {
+            HttpLogCollector.response(
+                LogResponseBean(
+                    url = request.url().toString(),
+                    code = response.code(),
+                    message = response.message(),
+                    heads = response.headers().toMultimap(),
+                    body = responseBodyString,
+                )
+            )
         }
         "WqApi ----------------------------------------------------------------------------------------------------------------------------------------------------------------------".wqLog()
     }

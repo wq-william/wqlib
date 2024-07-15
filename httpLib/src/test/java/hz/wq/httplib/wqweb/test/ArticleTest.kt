@@ -1,7 +1,7 @@
 package hz.wq.httplib.wqweb.test
 
 import hz.wq.common.log.LogUtils.wqLog
-import hz.wq.httplib.utils.HttpUtil
+import hz.wq.httplib.helper.HttpHelper
 import hz.wq.httplib.wqweb.Config.isSuccess
 import hz.wq.httplib.wqweb.Config.wqWebDoMain
 import hz.wq.httplib.wqweb.bean.param.AddArticleBean
@@ -13,7 +13,7 @@ class ArticleTest {
     @Test
     fun 增加文章() = runTest {
         try {
-            val apiService = HttpUtil.getApiService(wqWebDoMain, ArticleInterface::class.java, UserTest().getHeadMap())
+            val apiService = HttpHelper.getApiService(wqWebDoMain, ArticleInterface::class.java, UserTest().getHeadMap())
             val addArticleBean = AddArticleBean(
                 categoryId = 1,
                 title="testTitle",

@@ -1,7 +1,7 @@
 package hz.wq.httplib.wqweb.test
 
 import hz.wq.common.log.LogUtils.wqLog
-import hz.wq.httplib.utils.HttpUtil
+import hz.wq.httplib.helper.HttpHelper
 import hz.wq.httplib.wqweb.Config.isSuccess
 import hz.wq.httplib.wqweb.Config.password
 import hz.wq.httplib.wqweb.Config.tokenStr
@@ -19,7 +19,7 @@ class UserTest {
     @Test
     fun 注册() = runTest {
         try {
-            val apiService = HttpUtil.getApiService(wqWebDoMain, UserInterface::class.java)
+            val apiService = HttpHelper.getApiService(wqWebDoMain, UserInterface::class.java)
             var result = apiService.register(userName, password)
             result.toString().wqLog()
             result.httpResponse.getResponseString().wqLog()
@@ -33,7 +33,7 @@ class UserTest {
     @Test
     fun 登录() = runTest {
         try {
-            val apiService = HttpUtil.getApiService(wqWebDoMain, UserInterface::class.java)
+            val apiService = HttpHelper.getApiService(wqWebDoMain, UserInterface::class.java)
             var result = apiService.login(userName, password)
             result.toString().wqLog()
             result.httpResponse.getResponseString().wqLog()
@@ -49,7 +49,7 @@ class UserTest {
     }
 
     private suspend fun getTokenStr(): String {
-        val apiLoginService = HttpUtil.getApiService(wqWebDoMain, UserInterface::class.java)
+        val apiLoginService = HttpHelper.getApiService(wqWebDoMain, UserInterface::class.java)
         var result = apiLoginService.login(userName, password)
         result.toString().wqLog()
         result.httpResponse.getResponseString().wqLog()
@@ -67,7 +67,7 @@ class UserTest {
     @Test
     fun 获取用户信息() = runTest {
         try {
-            val userApi = HttpUtil.getApiService(wqWebDoMain, UserInterface::class.java, getHeadMap())
+            val userApi = HttpHelper.getApiService(wqWebDoMain, UserInterface::class.java, getHeadMap())
             val userBeanApiResponse = userApi.getUserInfo()
             userBeanApiResponse.toString().wqLog()
             userBeanApiResponse.httpResponse.getResponseString().wqLog()
@@ -85,7 +85,7 @@ class UserTest {
     @Test
     fun 更新用户信息() = runTest {
         try {
-            val userApi = HttpUtil.getApiService(wqWebDoMain, UserInterface::class.java, getHeadMap())
+            val userApi = HttpHelper.getApiService(wqWebDoMain, UserInterface::class.java, getHeadMap())
             val result = userApi.updateUserInfo(UpdateUserBean("415906626@qq.com", "111222333"))
             result.toString().wqLog()
             result.httpResponse.getResponseString().wqLog()
@@ -103,7 +103,7 @@ class UserTest {
     @Test
     fun 更新用户头像() = runTest {
         try {
-            val userApi = HttpUtil.getApiService(wqWebDoMain, UserInterface::class.java, getHeadMap())
+            val userApi = HttpHelper.getApiService(wqWebDoMain, UserInterface::class.java, getHeadMap())
             val result = userApi.updateUserInfoAvatarUrl("https://unitTest")
             result.toString().wqLog()
             result.httpResponse.getResponseString().wqLog()
@@ -121,7 +121,7 @@ class UserTest {
     @Test
     fun 更新用户密码() = runTest {
         try {
-            val userApi = HttpUtil.getApiService(wqWebDoMain, UserInterface::class.java, getHeadMap())
+            val userApi = HttpHelper.getApiService(wqWebDoMain, UserInterface::class.java, getHeadMap())
             val result = userApi.updateUserInfoPassword(
                 UpdatePasswordBean(
                     password,

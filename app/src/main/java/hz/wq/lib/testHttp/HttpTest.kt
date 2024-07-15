@@ -6,8 +6,7 @@ import hz.wq.common.log.LogUtils.wqLog
 import hz.wq.httplib.bean.ApiResponse
 import hz.wq.httplib.interfaces.IDataProcessing
 import hz.wq.httplib.utils.Base64
-import hz.wq.httplib.utils.HttpUtil
-import kotlinx.coroutines.launch
+import hz.wq.httplib.helper.HttpHelper
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -31,7 +30,7 @@ object HttpTest {
             val json = Gson().toJson(paramBean)
 
             val body = RequestBody.create(MediaType.parse("application/json"), json)
-            var result = HttpUtil.sendApi(
+            var result = HttpHelper.sendApi(
                 domain = domain,
                 service = ApiService::class.java,
                 serviceFunction = ApiService::login,

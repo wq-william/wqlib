@@ -1,13 +1,10 @@
 package hz.wq.httplib.wqweb.test
 
 import hz.wq.common.log.LogUtils.wqLog
-import hz.wq.httplib.utils.HttpUtil
+import hz.wq.httplib.helper.HttpHelper
 import hz.wq.httplib.wqweb.Config.isSuccess
-import hz.wq.httplib.wqweb.Config.password
-import hz.wq.httplib.wqweb.Config.userName
 import hz.wq.httplib.wqweb.Config.wqWebDoMain
 import hz.wq.httplib.wqweb.interfaces.FileInterface
-import hz.wq.httplib.wqweb.interfaces.UserInterface
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -58,7 +55,7 @@ class FileTest {
                 }
             })
             val multipartBody = MultipartBody.Part.createFormData("file", file.name, requestFile)
-            val api = HttpUtil.getApiService(wqWebDoMain, FileInterface::class.java, UserTest().getHeadMap())
+            val api = HttpHelper.getApiService(wqWebDoMain, FileInterface::class.java, UserTest().getHeadMap())
             var result = api.uploadFile(multipartBody)
             result.toString().wqLog()
             result.httpResponse.getResponseString().wqLog()
@@ -79,7 +76,7 @@ class FileTest {
             val file = File("C:\\Users\\Administrator\\Desktop\\aaabbb.txt")
             val requestBody = RequestBody.create(MediaType.parse("image/*"), file)
             val multipartBody = MultipartBody.Part.createFormData("file", file.name, requestBody)
-            val api = HttpUtil.getApiService(wqWebDoMain, FileInterface::class.java, UserTest().getHeadMap())
+            val api = HttpHelper.getApiService(wqWebDoMain, FileInterface::class.java, UserTest().getHeadMap())
             var result = api.uploadFile(multipartBody)
             result.toString().wqLog()
             result.httpResponse.getResponseString().wqLog()

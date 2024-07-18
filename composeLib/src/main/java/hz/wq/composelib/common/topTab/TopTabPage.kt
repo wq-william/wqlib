@@ -1,4 +1,4 @@
-package hz.wq.composelib.topTab
+package hz.wq.composelib.common.topTab
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background

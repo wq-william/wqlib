@@ -1,4 +1,4 @@
-package hz.wq.composelib.bottomTab
+package hz.wq.composelib.common.bottomTab
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

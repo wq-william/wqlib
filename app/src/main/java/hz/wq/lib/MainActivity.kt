@@ -1,47 +1,68 @@
 package hz.wq.lib
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.activity.viewModels
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import hz.wq.common.TestCommon
+import hz.wq.common.activity.CommonComposeActivity
 import hz.wq.common.log.LogUtils.wqLog
-import hz.wq.lib.testCompose.TestBottomTab
-import hz.wq.lib.testHttp.HttpTest
-import hz.wq.lib.theme.TestGradle85Theme
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import hz.wq.common.viewModel.CommonViewModel
+import hz.wq.composelib.common.login.LoginPage
+import hz.wq.composelib.common.login.viewModel.LoginViewModel
 
-class MainActivity : ComponentActivity() {
+//class MainActivity : CommonActivityCompose() {
+//    @Composable
+//    override fun ComposeContent() {
+//        TODO("Not yet implemented")
+//    }
+//
+//    override fun getViewModel(): CommonViewModel? {
+//        TODO("Not yet implemented")
+//    }
+//}
+class MainActivity : CommonComposeActivity() {
+
+    private val viewModel: LoginViewModel by viewModels()
+
+    @Composable
+    override fun ComposeContent(){
+        LoginPage(viewModel)
+    }
+
+    override fun getViewModel(): CommonViewModel?{
+        return viewModel
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         "test log ".wqLog()
         TestCommon.getTestStr().wqLog()
 
-        CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
-            HttpTest.fetchData_Test_sendApi_login陈豪()
-        }
-        setContent {
-            TestBottomTab()
-//            TestGradle85Theme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    Greeting(
-//                        name = "Android gradle8.7 app8.5",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
-//                }
+//        CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
+//            HttpTest.fetchData_Test_sendApi_login陈豪()
+//        }
+//        setContent {
+//            LoginPage(viewModel)
+////            TestBottomTab()
+////            TestGradle85Theme {
+////                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+////                    Greeting(
+////                        name = "Android gradle8.7 app8.5",
+////                        modifier = Modifier.padding(innerPadding)
+////                    )
+////                }
+////            }
+//        }
+//        lifecycleScope.launch {
+//            viewModel.shouldFinishActivity.collect {
+//                "shouldFinishActivity collect".wqLog()
+//                finish()
 //            }
-        }
+//        }
     }
 }
 

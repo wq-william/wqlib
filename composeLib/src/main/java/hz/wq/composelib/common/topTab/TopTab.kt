@@ -1,4 +1,4 @@
-package hz.wq.composelib.topTab
+package hz.wq.composelib.common.topTab
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import hz.wq.composelib.bottomTab.BottomTab
+import hz.wq.composelib.common.bottomTab.BottomTab
 
 /**
  * 创建者: W~Q

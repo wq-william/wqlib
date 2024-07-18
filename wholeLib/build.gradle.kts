@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+
 }
 
 version = "0.2"
@@ -32,10 +33,13 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+//
+    api(project(":httpLib"))
+    api(project(":common"))
+    api(project(":composeLib"))
+//    api(libs.androidx.core.ktx)
+//    api(libs.androidx.appcompat)
+//    api(libs.material)
 
 
     testImplementation(libs.junit)
@@ -43,9 +47,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
 
-    api(project(":httpLib"))
-    api(project(":common"))
-    api(project(":composeLib"))
+
 }
 
 extra.set("libVersion", version)

@@ -13,6 +13,7 @@ import hz.wq.common.log.LogUtils.wqLog
 import hz.wq.common.viewModel.CommonViewModel
 import hz.wq.composelib.common.login.LoginPage
 import hz.wq.composelib.common.login.viewModel.LoginViewModel
+import hz.wq.lib.testCompose.TestBottomTab
 
 //class MainActivity : CommonActivityCompose() {
 //    @Composable
@@ -30,7 +31,8 @@ class MainActivity : CommonComposeActivity() {
 
     @Composable
     override fun ComposeContent(){
-        LoginPage(viewModel)
+//        LoginPage(viewModel)
+        TestBottomTab()
     }
 
     override fun getViewModel(): CommonViewModel?{

@@ -47,11 +47,11 @@ android {
 }
 
 dependencies {
+    api(project(":common"))
+//    implementation(libs.androidx.core.ktx)
+//    implementation(libs.androidx.appcompat)
+//    implementation(libs.material)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(project(":common"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,6 +66,8 @@ dependencies {
 
     api("com.squareup.okhttp3:logging-interceptor:3.12.2")
     api("com.blankj:utilcodex:1.31.1")
+
+
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }
 

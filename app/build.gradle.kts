@@ -67,8 +67,8 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
 
-    implementation("androidx.navigation:navigation-compose:2.7.5")
-    implementation("androidx.compose.runtime:runtime:1.5.1")
+//    implementation("androidx.navigation:navigation-compose:2.7.5")
+//    implementation("androidx.compose.runtime:runtime:1.5.1")
 
 //    implementation(libs.androidx.core.ktx)
 //    implementation(libs.androidx.lifecycle.runtime.ktx)

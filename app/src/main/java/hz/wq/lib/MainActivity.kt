@@ -8,7 +8,7 @@ import hz.wq.common.TestCommon
 import hz.wq.common.activity.CommonComposeActivity
 import hz.wq.common.log.LogUtils.wqLog
 import hz.wq.common.viewModel.CommonViewModel
-import hz.wq.composelib.common.login.screen.LoginPage
+import hz.wq.composelib.common.login.LoginModuleScreen
 import hz.wq.lib.viewModel.WqLoginViewModel
 
 class MainActivity : CommonComposeActivity() {
@@ -17,7 +17,8 @@ class MainActivity : CommonComposeActivity() {
 
     @Composable
     override fun ComposeContent() {
-        LoginPage(viewModel)
+
+        LoginModuleScreen(viewModel)
         launch {
             viewModel.loginResult.collect {
                 "MainActivity loginResult collect $it".wqLog()

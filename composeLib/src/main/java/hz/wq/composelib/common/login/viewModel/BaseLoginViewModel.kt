@@ -19,14 +19,13 @@ abstract class BaseLoginViewModel : CommonViewModel() {
     //数据状态管理
     private val _password = MutableStateFlow("")
     val password: StateFlow<String> = _password.asStateFlow()
+    private val _password2 = MutableStateFlow("")
+    val password2: StateFlow<String> = _password2.asStateFlow()
     private val _userName = MutableStateFlow("")
     val userName: StateFlow<String> = _userName.asStateFlow()
     private val _verificationCode = MutableStateFlow("")
     val verificationCode: StateFlow<String> = _verificationCode.asStateFlow()
 
-    init {
-        var value = password.value
-    }
 
     /**
      * 用户名变化
@@ -44,6 +43,10 @@ abstract class BaseLoginViewModel : CommonViewModel() {
         "password:$password".wqLog()
     }
 
+    fun onPassword2Changed(password: String) {
+        _password2.value = password
+        "password:$password".wqLog()
+    }
     /**
      * 验证码变化
      */

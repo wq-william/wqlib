@@ -16,18 +16,18 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import hz.wq.composelib.common.CommonTopAppBar
 import hz.wq.composelib.common.ImgButton
 import hz.wq.composelib.common.login.enums.LoginResult
 import hz.wq.composelib.common.login.viewModel.BaseLoginViewModel
 import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.composelib.common.login.enums.LoginPageEnum
 
-// ViewModel 示例
 
-
-//@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginPage(viewModel: BaseLoginViewModel) {
+fun LoginScreen(navHostController: NavHostController, viewModel: BaseLoginViewModel) {
     var userName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
@@ -98,7 +98,10 @@ fun LoginPage(viewModel: BaseLoginViewModel) {
                         .clickable(
                             interactionSource = interactionSource, // 传入自定义的InteractionSource
                             indication = null // 禁用默认指示器
-                        ) { "注册按钮 点击".wqLog() }
+                        ) {
+                            "注册按钮 点击".wqLog()
+                            navHostController.navigate(LoginPageEnum.REGISTER.name)
+                        }
                         .padding(horizontal = 10.dp, vertical = 4.dp), // 这里定义了额外的点击区域
                     contentAlignment = Alignment.Center
                 ) {
@@ -116,7 +119,10 @@ fun LoginPage(viewModel: BaseLoginViewModel) {
                         .clickable(
                             interactionSource = interactionSource, // 传入自定义的InteractionSource
                             indication = null // 禁用默认指示器
-                        ) { "忘记密码按钮 点击".wqLog() }
+                        ) {
+                            navHostController.navigate(LoginPageEnum.RESET_PASSWORD.name)
+                            "忘记密码按钮 点击".wqLog()
+                        }
                         .padding(horizontal = 10.dp, vertical = 4.dp), // 这里定义了额外的点击区域
                     contentAlignment = Alignment.Center
                 ) {
@@ -173,7 +179,7 @@ fun LoginPage(viewModel: BaseLoginViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginPage() {
-    LoginPage(object : BaseLoginViewModel() {
+    LoginScreen(rememberNavController(), object : BaseLoginViewModel() {
         override fun login(email: String, password: String) {
             emitLoginResult(if (email == "123" && password == "456") LoginResult.LoginSuccess else LoginResult.LoginError)
         }

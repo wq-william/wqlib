@@ -48,7 +48,7 @@ import hz.wq.composelib.common.ImgButton
 import hz.wq.composelib.common.login.viewModel.BaseLoginViewModel
 
 @Composable
-fun RegisterScreen(
+fun ResetPasswordScreen(
     navHostController: NavHostController,
     viewModel: BaseLoginViewModel
 ) {
@@ -56,28 +56,29 @@ fun RegisterScreen(
         topBar = {
             CommonTopAppBar(
                 leftImgButton = ImgButton(Icons.AutoMirrored.Filled.ArrowBack) {
-                    if (DebounceUtil.isPassDebounce("RegisterScreenBack", 2000)) {
+                    if (DebounceUtil.isPassDebounce("ResetPasswordScreenBack", 2000)) {
                         navHostController.popBackStack()
                     }
                 },
-                title = "注册",
+                title = "重置密码",
             )
         },
         content = { innerPadding -> // 这里的Lambda表达式是Scaffold所期望的
-            RegisterScreenContent(innerPadding, viewModel) // 调用你的Composable函数并传递innerPadding
+            ResetPasswordScreenContent(innerPadding, viewModel) // 调用你的Composable函数并传递innerPadding
         }
 
     )
 }
 
 @Composable
-fun RegisterScreenContent(innerPadding: PaddingValues, viewModel: BaseLoginViewModel) {
+fun ResetPasswordScreenContent(innerPadding: PaddingValues, viewModel: BaseLoginViewModel) {
     var userName by remember { mutableStateOf(viewModel.userName.value) }
     var password by remember { mutableStateOf(viewModel.password.value) }
+    var password2 by remember { mutableStateOf(viewModel.password2.value) }
     var verificationCode by remember { mutableStateOf(viewModel.verificationCode.value) }
     var showPassword by remember { mutableStateOf(false) }
 
-    RegisterInitLaunchedEffect(viewModel, userName, password, verificationCode)
+    ResetPasswordInitLaunchedEffect(viewModel, userName, password, password2, verificationCode)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -94,11 +95,11 @@ fun RegisterScreenContent(innerPadding: PaddingValues, viewModel: BaseLoginViewM
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(16.dp))
+//        Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = verificationCode,
-            onValueChange = { verificationCode = it },
+            value = password,
+            onValueChange = { password = it },
             label = { Text("密码") },
             visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -113,7 +114,24 @@ fun RegisterScreenContent(innerPadding: PaddingValues, viewModel: BaseLoginViewM
             },
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        OutlinedTextField(
+            value = password2,
+            onValueChange = { password2 = it },
+            label = { Text("确认密码") },
+            visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            singleLine = true,
+            trailingIcon = {
+                IconButton(onClick = { showPassword = !showPassword }) {
+                    Icon(
+                        imageVector = if (showPassword) Icons.Default.Face else Icons.Default.Lock,
+                        contentDescription = if (showPassword) "Hide password" else "Show password"
+                    )
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
+//        Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = verificationCode,
             onValueChange = { verificationCode = it },
@@ -128,18 +146,21 @@ fun RegisterScreenContent(innerPadding: PaddingValues, viewModel: BaseLoginViewM
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("注册")
+            Text("修改密码")
         }
     }
 }
 
 @Composable
-fun RegisterInitLaunchedEffect(viewModel: BaseLoginViewModel, userName: String, password: String, verificationCode: String) {
+fun ResetPasswordInitLaunchedEffect(viewModel: BaseLoginViewModel, userName: String, password: String, password2: String, verificationCode: String) {
     LaunchedEffect(userName) {
         viewModel.onUserNameChanged(userName)
     }
     LaunchedEffect(password) {
-        viewModel.onPasswordChanged(password)
+        viewModel.onPasswordChanged(userName)
+    }
+    LaunchedEffect(password2) {
+        viewModel.onPassword2Changed(userName)
     }
     LaunchedEffect(verificationCode) {
         viewModel.onVerificationCodeChanged(verificationCode)

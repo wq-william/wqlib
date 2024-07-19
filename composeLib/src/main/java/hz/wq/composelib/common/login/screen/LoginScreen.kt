@@ -1,5 +1,7 @@
-package hz.wq.composelib.common.login
+package hz.wq.composelib.common.login.screen
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -17,19 +19,21 @@ import androidx.compose.ui.unit.dp
 import hz.wq.composelib.common.CommonTopAppBar
 import hz.wq.composelib.common.ImgButton
 import hz.wq.composelib.common.login.enums.LoginResult
-import hz.wq.composelib.common.login.viewModel.LoginViewModel
+import hz.wq.composelib.common.login.viewModel.BaseLoginViewModel
 import hz.wq.common.log.LogUtils.wqLog
 
 // ViewModel 示例
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+//@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginPage(viewModel: LoginViewModel) {
+fun LoginPage(viewModel: BaseLoginViewModel) {
     var userName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
     val loginState = viewModel.loginResult.collectAsState(initial = null).value
+
+    val interactionSource = remember { MutableInteractionSource() }
     Column {
         CommonTopAppBar(
             rightImgs = arrayOf(
@@ -76,20 +80,63 @@ fun LoginPage(viewModel: LoginViewModel) {
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
-                    viewModel.login(userName, password)
+                    viewModel.login()
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("登录")
             }
-            Spacer(modifier = Modifier.height(186.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                // 注册按钮
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable(
+                            interactionSource = interactionSource, // 传入自定义的InteractionSource
+                            indication = null // 禁用默认指示器
+                        ) { "注册按钮 点击".wqLog() }
+                        .padding(horizontal = 10.dp, vertical = 4.dp), // 这里定义了额外的点击区域
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "注册",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+
+                // 忘记密码按钮
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable(
+                            interactionSource = interactionSource, // 传入自定义的InteractionSource
+                            indication = null // 禁用默认指示器
+                        ) { "忘记密码按钮 点击".wqLog() }
+                        .padding(horizontal = 10.dp, vertical = 4.dp), // 这里定义了额外的点击区域
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "忘记密码?",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(150.dp))
         }
     }
 
     LaunchedEffect(userName) {
+        viewModel.onUserNameChanged(userName)
         userName.wqLog()
     }
     LaunchedEffect(password) {
+        viewModel.onPasswordChanged(password)
         password.wqLog()
     }
     LaunchedEffect(loginState) {
@@ -126,5 +173,9 @@ fun LoginPage(viewModel: LoginViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginPage() {
-    LoginPage(LoginViewModel())
+    LoginPage(object : BaseLoginViewModel() {
+        override fun login(email: String, password: String) {
+            emitLoginResult(if (email == "123" && password == "456") LoginResult.LoginSuccess else LoginResult.LoginError)
+        }
+    })
 }

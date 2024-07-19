@@ -1,43 +1,35 @@
 package hz.wq.lib
 
 import android.os.Bundle
-import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import hz.wq.common.TestCommon
 import hz.wq.common.activity.CommonComposeActivity
 import hz.wq.common.log.LogUtils.wqLog
 import hz.wq.common.viewModel.CommonViewModel
-import hz.wq.composelib.common.login.LoginPage
-import hz.wq.composelib.common.login.viewModel.LoginViewModel
-import hz.wq.lib.testCompose.TestBottomTab
+import hz.wq.composelib.common.login.screen.LoginPage
+import hz.wq.lib.viewModel.WqLoginViewModel
 
-//class MainActivity : CommonActivityCompose() {
-//    @Composable
-//    override fun ComposeContent() {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun getViewModel(): CommonViewModel? {
-//        TODO("Not yet implemented")
-//    }
-//}
 class MainActivity : CommonComposeActivity() {
 
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel: WqLoginViewModel by viewModels()
 
     @Composable
-    override fun ComposeContent(){
-//        LoginPage(viewModel)
-        TestBottomTab()
+    override fun ComposeContent() {
+        LoginPage(viewModel)
+        launch {
+            viewModel.loginResult.collect {
+                "MainActivity loginResult collect $it".wqLog()
+            }
+        }
+//        TestBottomTab()
     }
 
-    override fun getViewModel(): CommonViewModel?{
+    override fun getViewModel(): CommonViewModel? {
         return viewModel
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -67,26 +59,3 @@ class MainActivity : CommonComposeActivity() {
 //        }
     }
 }
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun MyComposeAppPreview() {
-//    TestBottomTab()
-//}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    TestGradle85Theme {
-//        Greeting("Android")
-//    }
-//}

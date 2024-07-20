@@ -1,4 +1,4 @@
-package hz.wq.httplib.wqweb.bean.result
+package hz.wq.httplib.api.result
 
 data class UserBean(
     val email: String,

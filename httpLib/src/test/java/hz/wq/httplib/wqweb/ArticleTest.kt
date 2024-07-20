@@ -1,11 +1,9 @@
-package hz.wq.httplib.wqweb.test
+package hz.wq.httplib.wqweb
 
 import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.httplib.api.service.ArticleInterface
 import hz.wq.httplib.helper.HttpHelper
-import hz.wq.httplib.wqweb.Config.isSuccess
-import hz.wq.httplib.wqweb.Config.wqWebDoMain
-import hz.wq.httplib.wqweb.bean.param.AddArticleBean
-import hz.wq.httplib.wqweb.interfaces.ArticleInterface
+import hz.wq.httplib.api.param.AddArticleBean
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 

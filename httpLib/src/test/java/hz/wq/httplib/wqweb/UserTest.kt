@@ -1,15 +1,10 @@
-package hz.wq.httplib.wqweb.test
+package hz.wq.httplib.wqweb
 
 import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.httplib.api.service.UserInterface
 import hz.wq.httplib.helper.HttpHelper
-import hz.wq.httplib.wqweb.Config.isSuccess
-import hz.wq.httplib.wqweb.Config.password
-import hz.wq.httplib.wqweb.Config.tokenStr
-import hz.wq.httplib.wqweb.Config.userName
-import hz.wq.httplib.wqweb.Config.wqWebDoMain
-import hz.wq.httplib.wqweb.bean.param.UpdatePasswordBean
-import hz.wq.httplib.wqweb.bean.param.UpdateUserBean
-import hz.wq.httplib.wqweb.interfaces.UserInterface
+import hz.wq.httplib.api.param.UpdatePasswordBean
+import hz.wq.httplib.api.param.UpdateUserBean
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 

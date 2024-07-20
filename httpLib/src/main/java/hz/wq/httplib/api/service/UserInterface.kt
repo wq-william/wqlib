@@ -1,9 +1,9 @@
-package hz.wq.httplib.wqweb.interfaces
+package hz.wq.httplib.api.service
 
 import hz.wq.httplib.bean.ApiResponse
-import hz.wq.httplib.wqweb.bean.param.UpdatePasswordBean
-import hz.wq.httplib.wqweb.bean.param.UpdateUserBean
-import hz.wq.httplib.wqweb.bean.result.UserBean
+import hz.wq.httplib.api.param.UpdatePasswordBean
+import hz.wq.httplib.api.param.UpdateUserBean
+import hz.wq.httplib.api.result.UserBean
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH

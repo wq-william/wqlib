@@ -72,6 +72,12 @@ abstract class BaseLoginViewModel : CommonViewModel() {
         }
     }
 
+    fun launch(){
+        viewModelScope.launch {
+
+        }
+    }
+
     fun resetState() {
         viewModelScope.launch {
             _loginResult.emit(LoginResult.NoState)

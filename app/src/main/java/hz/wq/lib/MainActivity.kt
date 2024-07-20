@@ -1,6 +1,7 @@
 package hz.wq.lib
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
@@ -9,7 +10,13 @@ import hz.wq.common.activity.CommonComposeActivity
 import hz.wq.common.log.LogUtils.wqLog
 import hz.wq.common.viewModel.CommonViewModel
 import hz.wq.composelib.common.login.LoginModuleScreen
+import hz.wq.composelib.common.login.enums.LoginResult
+import hz.wq.lib.testHttp.HttpTest
 import hz.wq.lib.viewModel.WqLoginViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 class MainActivity : CommonComposeActivity() {
 
@@ -24,6 +31,15 @@ class MainActivity : CommonComposeActivity() {
                 "MainActivity loginResult collect $it".wqLog()
             }
         }
+        launch {
+            viewModel.loginResult.collect {
+                if (it == LoginResult.LoginSuccess) {
+                    Toast.makeText(this@MainActivity, "登录成功完成了哟", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+
 //        TestBottomTab()
     }
 
@@ -37,9 +53,9 @@ class MainActivity : CommonComposeActivity() {
         "test log ".wqLog()
         TestCommon.getTestStr().wqLog()
 
-//        CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
-//            HttpTest.fetchData_Test_sendApi_login陈豪()
-//        }
+        CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
+            HttpTest.fetchData_Test_sendApi_login陈豪()
+        }
 //        setContent {
 //            LoginPage(viewModel)
 ////            TestBottomTab()

@@ -1,4 +1,4 @@
-package hz.wq.httplib.wqweb
+package hz.wq.httplib.api
 
 import hz.wq.common.log.LogUtils
 import hz.wq.httplib.bean.ApiResponse
@@ -8,7 +8,9 @@ object Config {
         LogUtils.isAndroidLog = false
     }
 
-    val wqWebDoMain = "http://127.0.0.1"
+//    val wqWebDoMain = "http://127.0.0.1"
+//    val wqWebDoMain = "http://localhost"
+    val wqWebDoMain = "http://192.168.0.103"
     val userName = "wq123456"
     val password = "123456"
 

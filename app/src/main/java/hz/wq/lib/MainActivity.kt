@@ -1,10 +1,15 @@
 package hz.wq.lib
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.blankj.utilcode.util.ToastUtils
 import hz.wq.common.TestCommon
 import hz.wq.common.activity.CommonComposeActivity
@@ -22,11 +27,27 @@ import kotlinx.coroutines.launch
 class MainActivity : CommonComposeActivity() {
 
     private val viewModel: WqLoginViewModel by viewModels()
+    var showDialog = true
+    override fun onBackPressed() {
+        if (showDialog) {
+            showDialog = false
+        } else {
+            super.onBackPressed()
+        }
+    }
 
     @Composable
     override fun ComposeContent() {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 10.dp, vertical = 4.dp), // 这里定义了额外的点击区域
+            contentAlignment = Alignment.Center
+        ) {
+            LoginModuleScreen(viewModel)
+        }
 
-        LoginModuleScreen(viewModel)
+
         launch {
             viewModel.loginResult.collect {
                 "MainActivity loginResult collect $it".wqLog()
@@ -57,9 +78,9 @@ class MainActivity : CommonComposeActivity() {
         "test log ".wqLog()
         TestCommon.getTestStr().wqLog()
 
-        CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
-            HttpTest.fetchData_Test_sendApi_login陈豪()
-        }
+//        CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
+//            HttpTest.fetchData_Test_sendApi_login陈豪()
+//        }
 //        setContent {
 //            LoginPage(viewModel)
 ////            TestBottomTab()

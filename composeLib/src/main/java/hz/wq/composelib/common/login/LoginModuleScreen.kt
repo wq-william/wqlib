@@ -16,6 +16,7 @@ import hz.wq.composelib.common.login.viewModel.BaseLoginViewModel
 @Composable
 fun LoginModuleScreen(viewModel: BaseLoginViewModel) {
 
+
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = LoginPageEnum.LOGIN.name) {
         composable(LoginPageEnum.LOGIN.name) {

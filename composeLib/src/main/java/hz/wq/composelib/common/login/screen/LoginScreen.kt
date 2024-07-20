@@ -28,8 +28,8 @@ import hz.wq.composelib.common.login.enums.LoginPageEnum
 
 @Composable
 fun LoginScreen(navHostController: NavHostController, viewModel: BaseLoginViewModel) {
-    var userName by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var userName by remember { mutableStateOf(viewModel.userName.value) }
+    var password by remember { mutableStateOf(viewModel.password.value) }
     var showPassword by remember { mutableStateOf(false) }
     val loginState = viewModel.loginResult.collectAsState(initial = null).value
 

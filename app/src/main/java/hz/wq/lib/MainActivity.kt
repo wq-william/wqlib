@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
+import com.blankj.utilcode.util.ToastUtils
 import hz.wq.common.TestCommon
 import hz.wq.common.activity.CommonComposeActivity
 import hz.wq.common.log.LogUtils.wqLog
@@ -34,7 +35,10 @@ class MainActivity : CommonComposeActivity() {
         launch {
             viewModel.loginResult.collect {
                 if (it == LoginResult.LoginSuccess) {
-                    Toast.makeText(this@MainActivity, "登录成功完成了哟", Toast.LENGTH_SHORT).show()
+//                    ToastUtils.make().setMode(ToastUtils.MODE.DARK)//.show("登录成功完成了哟1111")
+
+                    ToastUtils.showShort("登录成功完成了哟")
+//                    Toast.makeText(this@MainActivity, "登录成功完成了哟", Toast.LENGTH_SHORT).show()
                 }
             }
         }

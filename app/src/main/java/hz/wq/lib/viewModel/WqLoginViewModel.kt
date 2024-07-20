@@ -15,6 +15,11 @@ import hz.wq.lib.testHttp.domain
 
 class WqLoginViewModel : BaseLoginViewModel() {
 
+    init {
+        onUserNameChanged("wq123456")
+        onPasswordChanged("123456")
+    }
+
     override fun login(name: String, password: String) {
 
         launch {

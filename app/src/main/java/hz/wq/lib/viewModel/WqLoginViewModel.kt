@@ -3,7 +3,7 @@ package hz.wq.lib.viewModel
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
 import hz.wq.common.activity.CommonComposeActivity
-import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.composelib.common.login.enums.LoginResult
 import hz.wq.composelib.common.login.viewModel.BaseLoginViewModel
 import hz.wq.httplib.api.Config

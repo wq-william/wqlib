@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.blankj.utilcode.util.ToastUtils
 import hz.wq.common.TestCommon
 import hz.wq.common.activity.CommonComposeActivity
-import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.common.viewModel.CommonViewModel
 import hz.wq.composelib.common.login.LoginModuleScreen
 import hz.wq.composelib.common.login.enums.LoginResult

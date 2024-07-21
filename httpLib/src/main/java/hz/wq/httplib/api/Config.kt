@@ -1,6 +1,6 @@
 package hz.wq.httplib.api
 
-import hz.wq.common.log.LogUtils
+import hz.wq.common.util.log.LogUtils
 import hz.wq.httplib.bean.ApiResponse
 
 object Config {

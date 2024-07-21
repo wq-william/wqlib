@@ -1,7 +1,7 @@
 package hz.wq.composelib.common.login.viewModel
 
 import androidx.lifecycle.viewModelScope
-import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.composelib.common.login.enums.LoginResult
 import hz.wq.common.viewModel.CommonViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow

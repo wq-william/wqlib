@@ -1,6 +1,6 @@
 package hz.wq.httplib.wqweb
 
-import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.httplib.api.service.FileInterface
 import hz.wq.httplib.helper.HttpHelper
 import kotlinx.coroutines.test.runTest

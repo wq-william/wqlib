@@ -1,4 +1,4 @@
-package hz.wq.common.time
+package hz.wq.common.util.time
 
 import java.text.SimpleDateFormat
 import java.util.*

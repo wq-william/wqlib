@@ -22,7 +22,7 @@ import hz.wq.composelib.common.CommonTopAppBar
 import hz.wq.composelib.common.ImgButton
 import hz.wq.composelib.common.login.enums.LoginResult
 import hz.wq.composelib.common.login.viewModel.BaseLoginViewModel
-import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.composelib.common.login.enums.LoginPageEnum
 
 

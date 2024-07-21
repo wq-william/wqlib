@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
-import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.composelib.common.bottomTab.BottomTabScreen
 import hz.wq.composelib.common.bottomTab.testBottomTab
 import hz.wq.composelib.common.topTab.TabPage

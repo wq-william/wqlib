@@ -9,7 +9,7 @@ import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
-import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.common.viewModel.CommonViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

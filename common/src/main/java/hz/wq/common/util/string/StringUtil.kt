@@ -1,4 +1,4 @@
-package hz.wq.common.string
+package hz.wq.common.util.string
 
 /**
  * 描述: TODO

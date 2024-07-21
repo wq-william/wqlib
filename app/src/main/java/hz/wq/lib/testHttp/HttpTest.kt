@@ -2,7 +2,7 @@ package hz.wq.lib.testHttp
 
 import com.blankj.utilcode.util.EncryptUtils
 import com.google.gson.Gson
-import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.httplib.bean.ApiResponse
 import hz.wq.httplib.interfaces.IDataProcessing
 import hz.wq.httplib.utils.Base64

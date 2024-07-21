@@ -41,7 +41,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.blankj.utilcode.util.DebouncingUtils
-import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.common.util.DebounceUtil
 import hz.wq.composelib.common.CommonTopAppBar
 import hz.wq.composelib.common.ImgButton

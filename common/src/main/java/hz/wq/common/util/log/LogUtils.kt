@@ -1,4 +1,4 @@
-package hz.wq.common.log
+package hz.wq.common.util.log
 
 import android.util.Log
 import com.blankj.utilcode.util.AppUtils

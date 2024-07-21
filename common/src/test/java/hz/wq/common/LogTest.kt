@@ -1,7 +1,7 @@
 package hz.wq.common
 
-import hz.wq.common.log.LogUtils
-import hz.wq.common.log.LogUtils.wqLog
+import hz.wq.common.util.log.LogUtils
+import hz.wq.common.util.log.LogUtils.wqLog
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 

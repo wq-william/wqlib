@@ -48,7 +48,7 @@ open abstract class CommonComposeActivity : ComponentActivity() {
         }
     }
 
-    fun initData() {
+    open fun initData() {
     }
 
 

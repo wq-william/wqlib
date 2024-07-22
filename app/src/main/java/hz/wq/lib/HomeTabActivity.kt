@@ -1,5 +1,6 @@
 package hz.wq.lib
 
+import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -23,42 +24,18 @@ import hz.wq.lib.theme.TestGradle85Theme
 
 class HomeTabActivity : CommonComposeActivity() {
 
+    companion object{
+        var homeThis :HomeTabActivity? = null
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        HomeTabActivity.homeThis = this
+    }
 
     @Composable
     override fun ComposeContent() {
-        val items = listOf(
-            GridItem("Message Dialog") {
 
-                // 消息对话框
-                MessageDialog.Builder(This)
-                    // 标题可以不用填写
-                    .setTitle("我是标题")
-                    // 内容必须要填写
-                    .setMessage("我是内容")
-                    // 确定按钮文本
-                    .setConfirm("确定")
-                    // 设置 null 表示不显示取消按钮
-                    .setCancel("取消")
-                    // 设置点击按钮后不关闭对话框
-                    //.setAutoDismiss(false)
-                    .setListener(object : MessageDialog.OnListener {
-
-                        override fun onConfirm(dialog: BaseDialog?) {
-                            ToastUtils.showShort("确定了")
-                        }
-
-                        override fun onCancel(dialog: BaseDialog?) {
-                            ToastUtils.showShort("取消了")
-                        }
-                    })
-                    .show()
-            },
-            GridItem("Button 2"),
-            GridItem("Button 3"),
-            GridItem("Button 4"),
-            GridItem("Button 5"),
-            GridItem("Button 6")
-        )
         val context = LocalContext.current
         val selectBgColor = Color(ContextCompat.getColor(context, hz.wq.common.R.color.common_line_color))
         val selectFontColor = Color(ContextCompat.getColor(context, hz.wq.common.R.color.common_primary_dark_color))
@@ -71,7 +48,7 @@ class HomeTabActivity : CommonComposeActivity() {
                     name = "Dialog",
                     contentBgColor = if (index == 0) selectBgColor else Color.Unspecified,
                     contentScreen = {
-                        DialogGridLayout(items)
+                        DialogGridLayout()
                     },
                     fontColor = Color.DarkGray, fontSelectColor = selectFontColor,
                     fontSize = 12.sp, fontSelectSize = 13.sp,

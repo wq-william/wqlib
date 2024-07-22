@@ -24,13 +24,8 @@ import hz.wq.lib.theme.TestGradle85Theme
 
 class HomeTabActivity : CommonComposeActivity() {
 
-    companion object{
-        var homeThis :HomeTabActivity? = null
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        HomeTabActivity.homeThis = this
     }
 
     @Composable

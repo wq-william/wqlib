@@ -1,3 +1,6 @@
+import org.gradle.internal.component.model.Exclude
+import org.jetbrains.kotlin.cli.jvm.main
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -38,6 +41,26 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+//    sourceSets {
+//        val main = getByName<SourceSet>("main")
+//        main.resources.srcDirs(
+//            "src/main/res",
+//            "src/main/res-sw"
+//        )
+//    }
+//    sourceSets {
+//        val main by getting<AndroidSourceSet>()
+//        main.res.srcDirs("src/main/res", "src/main/res-sw")
+//    }
+//    sourceSets {
+//        main {
+//            // res 资源目录配置
+//            res.srcDirs(
+//                'src/main/res',
+//                'src/main/res-sw',
+//            )
+//        }
+//    }
 }
 
 dependencies {

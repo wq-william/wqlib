@@ -7,8 +7,7 @@
     android:layout_gravity="center"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/dialog_ui_round_size"
-    app:cardElevation="0px"
-    tools:context=".ui.dialog.CommonDialog">
+    app:cardElevation="0px">
 
     <LinearLayout
         android:id="@+id/ll_ui_container"

@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.StringRes
+import hz.wq.common.R
+import hz.wq.common.util.other.SingleClick
 
 class MessageDialog {
 

@@ -9,10 +9,7 @@ import hz.wq.common.R
 import hz.wq.common.dialog.action.AnimAction
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject-Kotlin
- *    time   : 2019/09/21
- *    desc   : 项目通用 Dialog 布局封装
+ * 项目通用 Dialog 布局封装
  */
 class CommonDialog {
 

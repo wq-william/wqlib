@@ -15,21 +15,18 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
-import com.hjq.base.action.*
 import hz.wq.common.R
 import hz.wq.common.dialog.action.ActivityAction
 import hz.wq.common.dialog.action.AnimAction
 import hz.wq.common.dialog.action.ClickAction
+import hz.wq.common.dialog.action.HandlerAction
 import hz.wq.common.dialog.action.KeyboardAction
 import hz.wq.common.dialog.action.ResourcesAction
 import java.lang.ref.SoftReference
 import java.util.*
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject-Kotlin
- *    time   : 2018/11/24
- *    desc   : Dialog 技术基类
+ * Dialog 技术基类
  */
 @Suppress("LeakingThis")
 open class BaseDialog constructor(context: Context, @StyleRes themeResId: Int = R.style.BaseDialogTheme) :

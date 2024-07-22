@@ -12,10 +12,7 @@ import hz.wq.common.util.other.SingleClick
 import hz.wq.common.view.RegexEditText
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject-Kotlin
- *    time   : 2019/02/27
- *    desc   : 输入对话框
+ * 输入对话框
  */
 class InputDialog {
 

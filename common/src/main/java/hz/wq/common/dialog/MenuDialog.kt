@@ -13,10 +13,7 @@ import hz.wq.common.util.other.SingleClick
 import java.util.*
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject-Kotlin
- *    time   : 2018/12/2
- *    desc   : 菜单选择框
+ * 菜单选择框
  */
 class MenuDialog {
 

@@ -1,14 +1,11 @@
-package com.hjq.base.action
+package hz.wq.common.dialog.action
 
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject-Kotlin
- *    time   : 2019/09/15
- *    desc   : Handler 意图处理
+ * Handler 意图处理
  */
 interface HandlerAction {
 

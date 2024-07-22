@@ -9,10 +9,7 @@ import hz.wq.common.R
 import java.util.regex.Pattern
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject-Kotlin
- *    time   : 2019/06/29
- *    desc   : 正则输入限制编辑框
+ * 正则输入限制编辑框
  */
 open class RegexEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,

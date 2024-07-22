@@ -9,6 +9,7 @@ import android.widget.TextView.OnEditorActionListener
 import androidx.annotation.StringRes
 import hz.wq.common.R
 import hz.wq.common.util.other.SingleClick
+import hz.wq.common.view.RegexEditText
 
 /**
  *    author : Android 轮子哥

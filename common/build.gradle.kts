@@ -79,8 +79,22 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     api("com.blankj:utilcodex:1.31.1")
+    // 动画解析库：https://github.com/airbnb/lottie-android
+    // 动画资源：https://lottiefiles.com、https://icons8.com/animated-icons
+    implementation("com.airbnb.android:lottie:6.4.1")
 
 
+//
+//    // 权限请求框架：https://github.com/getActivity/XXPermissions
+//    implementation("com.github.getActivity:XXPermissions:12.3")
+//    // 网络请求框架：https://github.com/getActivity/EasyHttp
+//    implementation("com.github.getActivity:EasyHttp:10.2")
+//
+
+
+
+    // Shape 框架：https://github.com/getActivity/ShapeView
+//    implementation("com.github.getActivity:ShapeView:6.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }
 

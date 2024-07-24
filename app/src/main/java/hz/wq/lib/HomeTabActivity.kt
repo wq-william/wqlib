@@ -40,7 +40,7 @@ class HomeTabActivity : CommonComposeActivity() {
             val index = selectedTabIndexState.value
             val topTabs = listOf(
                 TopTab(
-                    name = "Dialog",
+                    name = "弹出框",
                     contentBgColor = if (index == 0) selectBgColor else Color.Unspecified,
                     contentScreen = {
                         DialogGridLayout()

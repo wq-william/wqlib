@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     `maven-publish`
 }
-version = "0.1.4"
+version = "0.2"
 android {
     namespace = "hz.wq.composelib"
     compileSdk = 34

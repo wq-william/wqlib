@@ -4,7 +4,7 @@ plugins {
 
 }
 
-version = "0.2"
+version = "0.2.1"
 
 android {
     namespace = "hz.wq.wholelib"

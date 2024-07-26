@@ -16,7 +16,7 @@ import hz.wq.composelib.common.login.viewModel.BaseLoginViewModel
  * 创建者: W~Q
  */
 @Composable
-fun LoginModuleScreen(viewModel: BaseLoginViewModel = hiltViewModel()) {
+fun LoginModuleScreen(viewModel: BaseLoginViewModel) {
     "1查看viewModel地址：${viewModel}".wqLog()
 
     val navController = rememberNavController()

@@ -17,9 +17,12 @@ import hz.wq.httplib.helper.HttpHelper
 import hz.wq.lib.testHttp.LoginParamBean
 import hz.wq.lib.testHttp.domain
 import javax.inject.Inject
+import javax.inject.Singleton
 
 //@HiltViewModel
-class WqLoginViewModel /* @ViewModelScoped constructor()*/ : BaseLoginViewModel() {
+//@Singleton
+@HiltViewModel
+class WqLoginViewModel  @Inject constructor() : BaseLoginViewModel() {
 
     init {
         onUserNameChanged("wq123456")
@@ -27,7 +30,6 @@ class WqLoginViewModel /* @ViewModelScoped constructor()*/ : BaseLoginViewModel(
     }
 
     override fun login(name: String, password: String) {
-
         launch {
             try {
                 val apiService = HttpHelper.getApiService(Config.wqWebDoMain, UserInterface::class.java)

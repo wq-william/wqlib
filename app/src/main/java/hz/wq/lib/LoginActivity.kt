@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,13 +21,13 @@ import hz.wq.common.viewModel.CommonViewModel
 import hz.wq.composelib.common.login.LoginModuleScreen
 import hz.wq.composelib.common.login.enums.LoginResult
 import hz.wq.lib.viewModel.WqLoginViewModel
+import javax.inject.Inject
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class LoginActivity : CommonComposeActivity() {
 
     private val viewModel: WqLoginViewModel by viewModels()
-//    @Inject
-//    lateinit var viewModel: WqLoginViewModel
+//    @Inject lateinit var viewModel: WqLoginViewModel
 
 //        @InjectsewModel: WqLoginViewModel
     private var showDialog = true
@@ -36,7 +37,6 @@ class LoginActivity : CommonComposeActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        LogUtils.i("wq","wq test")
         "test log ".wqLog()
         TestCommon.getTestStr().wqLog()
     }
@@ -57,7 +57,8 @@ class LoginActivity : CommonComposeActivity() {
                 .padding(horizontal = 10.dp, vertical = 4.dp), // 这里定义了额外的点击区域
             contentAlignment = Alignment.Center
         ) {
-            LoginModuleScreen(viewModel)
+//            var wqLoginViewModel: WqLoginViewModel = hiltViewModel()
+            LoginModuleScreen(hiltViewModel() as WqLoginViewModel)
         }
 
 

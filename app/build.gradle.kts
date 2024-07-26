@@ -1,7 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    `maven-publish`
+//    `maven-publish`
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+
+    id("dagger.hilt.android.plugin") // 添加此行
 }
 
 android {
@@ -25,22 +29,26 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
+//        kotlinCompilerExtensionVersion = "1.9.0"
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    lintOptions {
+        isAbortOnError = false
     }
 }
 
@@ -88,4 +96,19 @@ dependencies {
 
 
     implementation(project(":wholeLib"))
+
+    implementation("com.google.dagger:hilt-android:2.44")
+//    annotationProcessor("com.google.dagger:hilt-compiler:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+// https://mvnrepository.com/artifact/androidx.hilt/hilt-navigation-compose
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+//    implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

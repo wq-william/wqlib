@@ -10,24 +10,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
+import dagger.hilt.android.AndroidEntryPoint
 import hz.wq.common.TestCommon
 import hz.wq.common.activity.CommonComposeActivity
 import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.common.viewModel.CommonViewModel
 import hz.wq.composelib.common.login.LoginModuleScreen
 import hz.wq.composelib.common.login.enums.LoginResult
-import hz.wq.lib.testHttp.HttpTest
 import hz.wq.lib.viewModel.WqLoginViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 
-class MainActivity : CommonComposeActivity() {
+//@AndroidEntryPoint
+class LoginActivity : CommonComposeActivity() {
 
     private val viewModel: WqLoginViewModel by viewModels()
-    var showDialog = true
+//    @Inject
+//    lateinit var viewModel: WqLoginViewModel
+
+//        @InjectsewModel: WqLoginViewModel
+    private var showDialog = true
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        LogUtils.i("wq","wq test")
+        "test log ".wqLog()
+        TestCommon.getTestStr().wqLog()
+    }
     override fun onBackPressed() {
         if (showDialog) {
             showDialog = false
@@ -38,6 +50,7 @@ class MainActivity : CommonComposeActivity() {
 
     @Composable
     override fun ComposeContent() {
+        "查看viewModel地址：${viewModel}".wqLog()
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -72,32 +85,4 @@ class MainActivity : CommonComposeActivity() {
         return viewModel
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        "test log ".wqLog()
-        TestCommon.getTestStr().wqLog()
-
-//        CoroutineScope(Dispatchers.Main + SupervisorJob()).launch {
-//            HttpTest.fetchData_Test_sendApi_login陈豪()
-//        }
-//        setContent {
-//            LoginPage(viewModel)
-////            TestBottomTab()
-////            TestGradle85Theme {
-////                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-////                    Greeting(
-////                        name = "Android gradle8.7 app8.5",
-////                        modifier = Modifier.padding(innerPadding)
-////                    )
-////                }
-////            }
-//        }
-//        lifecycleScope.launch {
-//            viewModel.shouldFinishActivity.collect {
-//                "shouldFinishActivity collect".wqLog()
-//                finish()
-//            }
-//        }
-    }
 }

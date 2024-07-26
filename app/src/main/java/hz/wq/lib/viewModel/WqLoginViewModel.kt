@@ -1,7 +1,11 @@
 package hz.wq.lib.viewModel
 
+import android.content.Context
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.scopes.ViewModelScoped
 import hz.wq.common.activity.CommonComposeActivity
 import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.composelib.common.login.enums.LoginResult
@@ -12,8 +16,10 @@ import hz.wq.httplib.api.service.UserInterface
 import hz.wq.httplib.helper.HttpHelper
 import hz.wq.lib.testHttp.LoginParamBean
 import hz.wq.lib.testHttp.domain
+import javax.inject.Inject
 
-class WqLoginViewModel : BaseLoginViewModel() {
+//@HiltViewModel
+class WqLoginViewModel /* @ViewModelScoped constructor()*/ : BaseLoginViewModel() {
 
     init {
         onUserNameChanged("wq123456")
@@ -29,7 +35,7 @@ class WqLoginViewModel : BaseLoginViewModel() {
                 if (result.isSuccess()) {
                     "登录成功了哟".wqLog()
                     emitLoginResult(LoginResult.LoginSuccess)
-                }else{
+                } else {
                     emitLoginResult(LoginResult.LoginError)
                 }
             } catch (e: Exception) {
@@ -37,7 +43,6 @@ class WqLoginViewModel : BaseLoginViewModel() {
                 emitLoginResult(LoginResult.LoginError)
             }
         }
-
 
 
 //        if (name == "wq" && password == "123") {

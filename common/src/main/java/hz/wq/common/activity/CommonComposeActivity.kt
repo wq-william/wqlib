@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
  * 描述: 通用的Activity Compose
  */
 open abstract class CommonComposeActivity : ComponentActivity() {
-    lateinit var This: CommonComposeActivity
+//    var This: CommonComposeActivity? = null
 
     @Composable
     abstract fun ComposeContent()
@@ -29,7 +29,7 @@ open abstract class CommonComposeActivity : ComponentActivity() {
     abstract fun getViewModel(): CommonViewModel?
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        This = this
+//        This = this
         super.onCreate(savedInstanceState)
         initData()
         initFinish()

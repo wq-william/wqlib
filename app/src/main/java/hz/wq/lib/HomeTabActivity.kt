@@ -20,6 +20,7 @@ import hz.wq.composelib.common.topTab.TopTab
 import hz.wq.composelib.common.topTab.testTopTab
 import hz.wq.lib.testCompose.DialogGridLayout
 import hz.wq.lib.testCompose.GridItem
+import hz.wq.lib.testCompose.ModuleLayout
 import hz.wq.lib.theme.TestGradle85Theme
 
 class HomeTabActivity : CommonComposeActivity() {
@@ -42,14 +43,19 @@ class HomeTabActivity : CommonComposeActivity() {
                 TopTab(
                     name = "弹出框",
                     contentBgColor = if (index == 0) selectBgColor else Color.Unspecified,
-                    contentScreen = {
-                        DialogGridLayout()
-                    },
                     fontColor = Color.DarkGray, fontSelectColor = selectFontColor,
                     fontSize = 12.sp, fontSelectSize = 13.sp,
                     tabBgColor = if (index == 0) selectBgColor else Color.Unspecified
-                ),
-                testTopTab(tabName = "testT2", contentBgColor = if (index == 1) Color.Green else Color.Unspecified, tabBgColor = if (index == 1) Color.Green else Color.Unspecified),
+                ) {
+                    DialogGridLayout()
+                },
+                TopTab(
+                    name = "模块",
+                    contentBgColor = if (index == 1) Color.Green else Color.Unspecified,
+                    tabBgColor = if (index == 1) Color.Green else Color.Unspecified
+                ) {
+                    ModuleLayout()
+                },
                 testTopTab(tabName = "testT3", contentBgColor = if (index == 2) Color.DarkGray else Color.Unspecified, tabBgColor = if (index == 2) Color.DarkGray else Color.Unspecified),
                 testTopTab(tabName = "testT4", contentBgColor = if (index == 3) Color.DarkGray else Color.Unspecified, tabBgColor = if (index == 3) Color.DarkGray else Color.Unspecified),
                 testTopTab(tabName = "testT5", contentBgColor = if (index == 4) Color.DarkGray else Color.Unspecified, tabBgColor = if (index == 4) Color.DarkGray else Color.Unspecified),

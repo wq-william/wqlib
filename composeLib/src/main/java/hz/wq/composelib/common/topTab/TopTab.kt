@@ -20,14 +20,14 @@ import hz.wq.composelib.common.bottomTab.BottomTab
  */
 class TopTab(
     var name: String,
-    var contentScreen: @Composable () -> Unit = { },
     var isNeedText: Boolean = true,
     var fontSize: TextUnit = TextUnit.Unspecified,
     var fontSelectSize: TextUnit = TextUnit.Unspecified,
     var fontColor: Color = Color.Unspecified,
     var fontSelectColor: Color = Color.Unspecified,
     var contentBgColor: Color = Color.Unspecified,
-    var tabBgColor: Color = Color.Unspecified
+    var tabBgColor: Color = Color.Unspecified,
+    var contentScreen: @Composable () -> Unit = { },
 )
 
 fun testTopTab(

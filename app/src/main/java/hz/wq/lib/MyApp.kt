@@ -3,11 +3,13 @@ package hz.wq.lib
 import android.app.Application
 import android.view.Gravity
 import com.blankj.utilcode.util.ToastUtils
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
+@HiltAndroidApp
 class MyApp : Application() {
     private val appScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 

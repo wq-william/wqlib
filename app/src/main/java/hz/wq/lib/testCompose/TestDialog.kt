@@ -446,7 +446,12 @@ val gridItems = listOf(
 )
 
 @Composable
-fun DialogGridLayout(items: List<GridItem> = gridItems) {
+fun DialogGridLayout() {
+    GridLayout(gridItems)
+}
+
+@Composable
+fun GridLayout(items: List<GridItem> = gridItems) {
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(1), // 两列
@@ -464,4 +469,3 @@ fun DialogGridLayout(items: List<GridItem> = gridItems) {
         }
     }
 }
-

@@ -1,14 +1,10 @@
 package hz.wq.lib.testCompose
 
-import android.app.Activity
 import android.view.Gravity
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -32,10 +28,7 @@ import hz.wq.common.dialog.TipsDialog
 import hz.wq.common.dialog.UpdateDialog
 import hz.wq.common.dialog.WaitDialog
 import hz.wq.common.dialog.manager.DialogManager
-import hz.wq.lib.HomeTabActivity
-import hz.wq.lib.MyApp
 import java.util.ArrayList
-import java.util.Calendar
 import java.util.HashMap
 
 /**
@@ -423,7 +416,7 @@ object TestDialog {
 
 }
 
-data class GridItem(val text: String, var onClick: () -> Unit = { })
+
 
 val gridItems = listOf(
     GridItem("消息提示选择") { TestDialog.message() },
@@ -432,9 +425,9 @@ val gridItems = listOf(
     GridItem("居中选择") { TestDialog.menuCenter() },
     GridItem("单选") { TestDialog.radio() },
     GridItem("多选") { TestDialog.checkBox() },
-    GridItem("Toast 居中 成功") { TestDialog.toastSuccess() },
-    GridItem("Toast 居中 失败") { TestDialog.toastFail() },
-    GridItem("Toast 居中 警告") { TestDialog.toastWarning() },
+    GridItem("类似吐司 成功") { TestDialog.toastSuccess() },
+    GridItem("类似吐司 失败") { TestDialog.toastFail() },
+    GridItem("类似吐司 警告") { TestDialog.toastWarning() },
     GridItem("加载中") { TestDialog.loading() },
     GridItem("支付") { TestDialog.pay() },
     GridItem("选择城市") { TestDialog.selectCity() },
@@ -450,22 +443,3 @@ fun DialogGridLayout() {
     GridLayout(gridItems)
 }
 
-@Composable
-fun GridLayout(items: List<GridItem> = gridItems) {
-
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(1), // 两列
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(items) { item ->
-            Button(
-                onClick = item.onClick,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(text = item.text)
-            }
-        }
-    }
-}

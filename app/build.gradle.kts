@@ -81,6 +81,9 @@ dependencies {
 
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
+    // 沉浸式框架：https://github.com/gyf-dev/ImmersionBar
+//    api("com.gyf.immersionbar:immersionbar:3.2.2")
+
 }
 
 // Allow references to generated code

@@ -2,8 +2,8 @@ package hz.wq.lib.testCompose
 
 import androidx.compose.runtime.Composable
 import com.blankj.utilcode.util.ActivityUtils
-import hz.wq.lib.LoginActivity
-import hz.wq.lib.TestActivity
+import hz.wq.lib.activity.LoginActivity
+import hz.wq.lib.activity.TestActivity
 
 /**
  * 创建者: W~Q

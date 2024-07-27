@@ -1,4 +1,4 @@
-package hz.wq.lib
+package hz.wq.lib.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 import hz.wq.common.TestCommon
@@ -21,7 +20,6 @@ import hz.wq.common.viewModel.CommonViewModel
 import hz.wq.composelib.common.login.LoginModuleScreen
 import hz.wq.composelib.common.login.enums.LoginResult
 import hz.wq.lib.viewModel.WqLoginViewModel
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : CommonComposeActivity() {
@@ -29,9 +27,8 @@ class LoginActivity : CommonComposeActivity() {
     private val viewModel: WqLoginViewModel by viewModels()
 //    @Inject lateinit var viewModel: WqLoginViewModel
 
-//        @InjectsewModel: WqLoginViewModel
+    //        @InjectsewModel: WqLoginViewModel
     private var showDialog = true
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +37,7 @@ class LoginActivity : CommonComposeActivity() {
         "test log ".wqLog()
         TestCommon.getTestStr().wqLog()
     }
+
     override fun onBackPressed() {
         if (showDialog) {
             showDialog = false
@@ -53,8 +51,7 @@ class LoginActivity : CommonComposeActivity() {
         "查看viewModel地址：${viewModel}".wqLog()
         Box(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 10.dp, vertical = 4.dp), // 这里定义了额外的点击区域
+                .fillMaxSize(), // 这里定义了额外的点击区域
             contentAlignment = Alignment.Center
         ) {
 //            var wqLoginViewModel: WqLoginViewModel = hiltViewModel()

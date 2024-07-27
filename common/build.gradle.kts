@@ -84,6 +84,12 @@ dependencies {
     implementation("com.airbnb.android:lottie:6.4.1")
 
 
+    // 沉浸式框架：https://github.com/gyf-dev/ImmersionBar
+    //    api("com.gyf.immersionbar:immersionbar:3.2.2")
+    // 基础依赖包，必须要依赖
+    api("com.geyifeng.immersionbar:immersionbar:3.2.2")
+    // kotlin扩展（可选）
+    api("com.geyifeng.immersionbar:immersionbar-ktx:3.2.2")
 //
 //    // 权限请求框架：https://github.com/getActivity/XXPermissions
 //    implementation("com.github.getActivity:XXPermissions:12.3")

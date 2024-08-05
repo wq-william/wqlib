@@ -2,17 +2,7 @@ package hz.wq.lib.testCompose
 
 import android.view.Gravity
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import hz.wq.common.dialog.AddressDialog
@@ -418,28 +408,28 @@ object TestDialog {
 
 
 
-val gridItems = listOf(
-    GridItem("消息提示选择") { TestDialog.message() },
-    GridItem("输入") { TestDialog.input() },
-    GridItem("底部选择") { TestDialog.menuBottom() },
-    GridItem("居中选择") { TestDialog.menuCenter() },
-    GridItem("单选") { TestDialog.radio() },
-    GridItem("多选") { TestDialog.checkBox() },
-    GridItem("类似吐司 成功") { TestDialog.toastSuccess() },
-    GridItem("类似吐司 失败") { TestDialog.toastFail() },
-    GridItem("类似吐司 警告") { TestDialog.toastWarning() },
-    GridItem("加载中") { TestDialog.loading() },
-    GridItem("支付") { TestDialog.pay() },
-    GridItem("选择城市") { TestDialog.selectCity() },
-    GridItem("选择日期_年月日") { TestDialog.selectDay() },
-    GridItem("选择日期_时分秒") { TestDialog.selectTime() },
+val gridButtonItems = listOf(
+    GridButtonItem("消息提示选择") { TestDialog.message() },
+    GridButtonItem("输入") { TestDialog.input() },
+    GridButtonItem("底部选择") { TestDialog.menuBottom() },
+    GridButtonItem("居中选择") { TestDialog.menuCenter() },
+    GridButtonItem("单选") { TestDialog.radio() },
+    GridButtonItem("多选") { TestDialog.checkBox() },
+    GridButtonItem("类似吐司 成功") { TestDialog.toastSuccess() },
+    GridButtonItem("类似吐司 失败") { TestDialog.toastFail() },
+    GridButtonItem("类似吐司 警告") { TestDialog.toastWarning() },
+    GridButtonItem("加载中") { TestDialog.loading() },
+    GridButtonItem("支付") { TestDialog.pay() },
+    GridButtonItem("选择城市") { TestDialog.selectCity() },
+    GridButtonItem("选择日期_年月日") { TestDialog.selectDay() },
+    GridButtonItem("选择日期_时分秒") { TestDialog.selectTime() },
 //    GridItem("分享") { TestDialog.share() },
-    GridItem("升级") { TestDialog.update() },
-    GridItem("连续弹出") { TestDialog.continueDialog() },
+    GridButtonItem("升级") { TestDialog.update() },
+    GridButtonItem("连续弹出") { TestDialog.continueDialog() },
 )
 
 @Composable
 fun DialogGridLayout() {
-    GridLayout(gridItems)
+    GridButtonLayout(gridButtonItems)
 }
 

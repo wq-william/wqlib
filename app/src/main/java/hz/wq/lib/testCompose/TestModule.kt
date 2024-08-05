@@ -10,14 +10,14 @@ import hz.wq.lib.activity.TestActivity
  * 描述: 模块
  */
 object TestModule {
-    val gridItems = listOf(
-        GridItem("Test") { ActivityUtils.startActivity(TestActivity::class.java) },
-        GridItem("登录") { ActivityUtils.startActivity(LoginActivity::class.java) },
+    val gridButtonItems = listOf(
+        GridButtonItem("Test") { ActivityUtils.startActivity(TestActivity::class.java) },
+        GridButtonItem("登录") { ActivityUtils.startActivity(LoginActivity::class.java) },
     )
 }
 
 
 @Composable
 fun ModuleLayout() {
-    GridLayout(TestModule.gridItems)
+    GridButtonLayout(TestModule.gridButtonItems)
 }

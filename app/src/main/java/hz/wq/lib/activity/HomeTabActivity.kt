@@ -20,6 +20,7 @@ import hz.wq.composelib.common.bottomTab.testBottomTab
 import hz.wq.composelib.common.topTab.TabPage
 import hz.wq.composelib.common.topTab.TopTab
 import hz.wq.lib.R
+import hz.wq.lib.testCompose.AssemblyLayout
 import hz.wq.lib.testCompose.DialogGridLayout
 import hz.wq.lib.testCompose.ModuleLayout
 import hz.wq.lib.testCompose.StatusBarLayout
@@ -56,6 +57,7 @@ class HomeTabActivity : CommonComposeActivity() {
             TopTab(name = "模块") { ModuleLayout() },
             TopTab(name = "弹出框") { DialogGridLayout() },
             TopTab(name = "状态栏") { StatusBarLayout() },
+            TopTab(name = "UI组件") { AssemblyLayout() },
 //                TopTab(name = "testT3"),
 //                TopTab(name = "testT4"),
 //                TopTab(name = "testT5"),

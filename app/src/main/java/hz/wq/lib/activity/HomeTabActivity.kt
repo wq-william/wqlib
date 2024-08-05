@@ -12,20 +12,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import com.gyf.immersionbar.ImmersionBar
+import dagger.hilt.android.AndroidEntryPoint
 import hz.wq.common.activity.CommonComposeActivity
 import hz.wq.common.viewModel.CommonViewModel
 import hz.wq.composelib.common.bottomTab.BottomTabScreen
 import hz.wq.composelib.common.bottomTab.testBottomTab
 import hz.wq.composelib.common.topTab.TabPage
 import hz.wq.composelib.common.topTab.TopTab
-import hz.wq.lib.R
 import hz.wq.lib.testCompose.AssemblyLayout
 import hz.wq.lib.testCompose.DialogGridLayout
 import hz.wq.lib.testCompose.ModuleLayout
 import hz.wq.lib.testCompose.StatusBarLayout
 import hz.wq.lib.theme.TestGradle85Theme
-
+@AndroidEntryPoint
 class HomeTabActivity : CommonComposeActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

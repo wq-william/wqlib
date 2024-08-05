@@ -46,6 +46,13 @@ class WqLoginViewModel  @Inject constructor() : BaseLoginViewModel() {
             }
         }
 
+        launch {
+            //写三个不同的排序算法
+
+
+
+
+        }
 
 //        if (name == "wq" && password == "123") {
 //            emitLoginResult(LoginResult.LoginSuccess)

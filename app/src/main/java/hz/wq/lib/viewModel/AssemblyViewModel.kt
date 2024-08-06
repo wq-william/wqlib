@@ -1,5 +1,8 @@
 package hz.wq.lib.viewModel
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalView
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hz.wq.common.util.log.LogUtils.wqLog
@@ -9,14 +12,9 @@ import hz.wq.composelib.common.login.viewModel.BaseLoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -35,12 +33,13 @@ class AssemblyViewModel @Inject constructor() : CommonViewModel() {
         .stateIn(
             scope = CoroutineScope(Dispatchers.Main),
             started = SharingStarted.WhileSubscribed(),
-            initialValue = true // 设置初始值
+            initialValue = false // 设置初始值
         )
 
     init {
         observeProgressPercentageToggleSwitch()
     }
+
 
     /**
      * 获取开关选中状态

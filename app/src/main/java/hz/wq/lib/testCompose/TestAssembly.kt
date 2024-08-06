@@ -1,12 +1,16 @@
 package hz.wq.lib.testCompose
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
@@ -22,8 +26,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import hz.wq.common.util.log.LogUtils.wqLog
 import hz.wq.lib.viewModel.AssemblyViewModel
@@ -37,9 +45,9 @@ import kotlinx.coroutines.launch
  */
 object TestAssembly {
     val items: MutableList<@Composable () -> Unit> = mutableListOf()
-
+    var url = "https://ww4.sinaimg.cn/mw690/7772612dgy1hrk2bwrk4gj20u00tyjt3.jpg"
     init {
-
+        items.add { ImageWithCoil(url) }
         items.add { SwitchButton() }
         items.add { InfiniteProgress() }
     }
@@ -65,6 +73,22 @@ fun SwitchButton() {
 //    Switch(checked = assemblyViewModel.isSwitchChecked(), onCheckedChange = { assemblyViewModel.toggleSwitch(it) })
 }
 
+@Composable
+fun ImageWithCoil(url: String) {
+    val imagePainter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(url)
+            .build()
+    )
+
+    Image(
+        painter = imagePainter,
+        contentDescription = "Sample Image",
+        modifier = Modifier.size(50.dp)
+            .clip(shape = CutCornerShape(16.dp)) // 设置圆角
+//            .clip(RoundedCornerShape(16.dp)) // 设置圆角半径
+    )
+}
 
 @Composable
 fun InfiniteProgress() {

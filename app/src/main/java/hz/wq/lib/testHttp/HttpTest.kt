@@ -8,7 +8,10 @@ import hz.wq.httplib.interfaces.IDataProcessing
 import hz.wq.httplib.utils.Base64
 import hz.wq.httplib.helper.HttpHelper
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FieldMap
@@ -28,8 +31,8 @@ object HttpTest {
                 appVersion = "0.0.1",
             )
             val json = Gson().toJson(paramBean)
-
-            val body = RequestBody.create(MediaType.parse("application/json"), json)
+            val contentType = "application/json".toMediaTypeOrNull()
+            val body = json.toRequestBody(contentType)
             var result = HttpHelper.sendApi(
                 domain = domain,
                 service = ApiService::class.java,

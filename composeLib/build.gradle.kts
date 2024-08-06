@@ -61,6 +61,7 @@ dependencies {
     // 如果你使用的是Hilt依赖注入框架
     api("androidx.hilt:hilt-navigation-compose:1.0.0")
     api("androidx.compose.runtime:runtime:1.5.1")
+    api("io.coil-kt:coil-compose:2.7.0")
 
 }
 
